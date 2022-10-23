@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/models/Deck.dart';
+import 'package:keyforgery/utilities/LogoConverte.dart';
 
 import '../utilities/style.dart';
 import '../utilities/utils.dart';
@@ -15,126 +17,159 @@ class DeckDisplayer extends StatefulWidget {
 
 class _DeckDisplayerState extends State<DeckDisplayer> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 124,
-        child: Card(
-            color: Theme.of(context).primaryColor,
-            elevation: 8,
-            margin: const EdgeInsets.only(top: 2, left: 5, right: 5),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(7)),
-            ),
-            child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  widget.deck.name,
-                                  textWidthBasis: TextWidthBasis.parent,
-                                  textAlign: TextAlign.start,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: textFontBold,
-                                ),
-                              )),
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 1, left: 20),
-                              child: Row(
-                                children: const [
-                                  CircleAvatar(
-                                    radius: 23, // Image radius
-                                    backgroundImage: NetworkImage(
-                                        'https://decksofkeyforge.com/static/media/logos.484392e1.png'),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    child: CircleAvatar(
-                                      radius: 23, // Image radius
-                                      backgroundImage: NetworkImage(
-                                          'https://decksofkeyforge.com/static/media/dis.35644fd3.png'),
-                                    ),
-                                  ),
-                                  CircleAvatar(
-                                    radius: 23, // Image radius
-                                    backgroundImage: NetworkImage(
-                                        'https://decksofkeyforge.com/static/media/untamed.7db4a2fb.png'),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        flex: 2,
+    return GestureDetector(
+      onTap: (){
+        print(widget.deck.name);
+      },
+      child: SizedBox(
+          height: 124,
+          child: Card(
+              color: Theme.of(context).primaryColor,
+              elevation: 8,
+              margin: const EdgeInsets.only(top: 2, left: 5, right: 5),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(7)),
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        flex: 3,
                         child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Align(
-                                  alignment: Alignment.topRight,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: Align(
+                                  alignment: Alignment.topLeft,
                                   child: Text(
-                                    convertSetName(widget.deck.expansion),
-                                    textAlign: TextAlign.right,
+                                    widget.deck.name,
+                                    textWidthBasis: TextWidthBasis.parent,
+                                    textAlign: TextAlign.start,
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: textFontLow,
-                                  )),
-                              Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 18),
-                                                child: Column(children:  [
-                                                  Text(
-                                                    widget.deck.sasRating.toString(),
-                                                    textAlign: TextAlign.right,
-                                                    style: textFontBold,
-                                                  ),
-                                                  const Text(
-                                                    'SAS',
-                                                    textAlign: TextAlign.right,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: textFontLow,
-                                                  )
-                                                ])),
-                                            Column(children:  [
-                                              Text(
-                                                widget.deck.rawAmber.toString(),
-                                                textAlign: TextAlign.right,
-                                                style: textFontBold,
-                                              ),
-                                              const Text(
-                                                'Æmber',
-                                                textAlign: TextAlign.right,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: textFontLow,
-                                              )
-                                            ])
-                                          ]))),
-                            ]))
-                  ],
-                ))));
+                                    style: textFontBold,
+                                  ),
+                                )),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 1, left: 20),
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10000.0),
+                                        child: CachedNetworkImage(
+                                          width: 46,
+                                          height: 46,
+                                          imageUrl: LogoConverter.getLinkFromName(
+                                              widget
+                                                  .deck.housesAndCards[0].house),
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(),
+                                        )),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10000.0),
+                                          child: CachedNetworkImage(
+                                            width: 46,
+                                            height: 46,
+                                            imageUrl:
+                                                LogoConverter.getLinkFromName(
+                                                    widget.deck.housesAndCards[1]
+                                                        .house),
+                                            placeholder: (context, url) =>
+                                                CircularProgressIndicator(),
+                                          )),
+                                    ),
+                                    ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10000.0),
+                                        child: CachedNetworkImage(
+                                          width: 46,
+                                          height: 46,
+                                          imageUrl: LogoConverter.getLinkFromName(
+                                              widget
+                                                  .deck.housesAndCards[2].house),
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(),
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                          flex: 2,
+                          child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Align(
+                                    alignment: Alignment.topRight,
+                                    child: Text(
+                                      convertSetName(widget.deck.expansion),
+                                      textAlign: TextAlign.right,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: textFontLow,
+                                    )),
+                                Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      right: 18),
+                                                  child: Column(children: [
+                                                    Text(
+                                                      widget.deck.sasRating
+                                                          .toString(),
+                                                      textAlign: TextAlign.right,
+                                                      style: textFontBold,
+                                                    ),
+                                                    const Text(
+                                                      'SAS',
+                                                      textAlign: TextAlign.right,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: textFontLow,
+                                                    )
+                                                  ])),
+                                              Column(children: [
+                                                Text(
+                                                  widget.deck.rawAmber.toString(),
+                                                  textAlign: TextAlign.right,
+                                                  style: textFontBold,
+                                                ),
+                                                const Text(
+                                                  'Æmber',
+                                                  textAlign: TextAlign.right,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: textFontLow,
+                                                )
+                                              ])
+                                            ]))),
+                              ]))
+                    ],
+                  )))),
+    );
   }
 }

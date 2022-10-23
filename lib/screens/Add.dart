@@ -44,6 +44,7 @@ class _AddState extends State<Add> {
             scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
             transitionDuration: const Duration(milliseconds: 200),
             transitionCurve: Curves.easeInOut,
+            borderRadius: BorderRadius.circular(30),
             physics: const BouncingScrollPhysics(),
             axisAlignment: 0.0,
             openAxisAlignment: 0.0,

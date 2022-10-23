@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:keyforgery/data/api/Api.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:localstore/localstore.dart';
 import 'package:keyforgery/screens/Home.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../data/models/HouseWrapper.dart';
 import '../screens/Add.dart';
 
 class MainBottomNavBar extends StatefulWidget {
@@ -15,6 +19,7 @@ class MainBottomNavBar extends StatefulWidget {
 
 class _MainBottomNavBarState extends State<MainBottomNavBar> {
   int _selectedIndex = 0;
+  final LocalStorage storage = LocalStorage('Keyforgery');
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
     Add(),
@@ -24,6 +29,21 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+  }
+
+  void initialization() async {
+    Api.getAllHouses().then((value) async {
+      Map<String, dynamic>? data = await storage.getItem('HousesLogo');
+      if (data == null || data != value.toJson()) {
+        storage.setItem('HousesLogo', value.toJson()).then((value) => FlutterNativeSplash.remove());
+      }
     });
   }
 
