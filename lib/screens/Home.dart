@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyforgery/data/api/Api.dart';
 import 'package:keyforgery/widgets/DeckDisplayer.dart';
+
+import '../widgets/DeckList.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -11,12 +14,12 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Keyforgery'),
       ),
-      // body:  // ListView.builder()
-      body: const DeckDisplayer(),
+      body: const DeckList(deckList: [],),
+      // body: const DeckDisplayer(),
       floatingActionButton: FloatingActionButton(
         elevation: 12,
         onPressed: () {
-          print('ciao');
+          Api.getDecksByName('Petra').then((value) => print(value));
         },
         child: const Icon(Icons.add),
       ),

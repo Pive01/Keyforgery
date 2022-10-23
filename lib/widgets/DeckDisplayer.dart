@@ -1,12 +1,19 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyforgery/data/models/Deck.dart';
 
 import '../utilities/style.dart';
+import '../utilities/utils.dart';
 
-class DeckDisplayer extends StatelessWidget {
-  const DeckDisplayer({Key? key}) : super(key: key);
+class DeckDisplayer extends StatefulWidget {
+  const DeckDisplayer({super.key, required this.deck});
 
+  final Deck deck;
+
+  @override
+  State<DeckDisplayer> createState() => _DeckDisplayerState();
+}
+
+class _DeckDisplayerState extends State<DeckDisplayer> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,14 +35,18 @@ class DeckDisplayer extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          const Expanded(
+                          Expanded(
                               flex: 1,
-                              child: Text(
-                                'Petra il Povero, Ufficiale della Vegetazione',
-                                textAlign: TextAlign.left,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: textFontBold,
+                              child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  widget.deck.name,
+                                  textWidthBasis: TextWidthBasis.parent,
+                                  textAlign: TextAlign.start,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textFontBold,
+                                ),
                               )),
                           Expanded(
                             flex: 1,
@@ -76,10 +87,10 @@ class DeckDisplayer extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Align(
+                              Align(
                                   alignment: Alignment.topRight,
                                   child: Text(
-                                    'Call Of The Archons',
+                                    convertSetName(widget.deck.expansion),
                                     textAlign: TextAlign.right,
                                     overflow: TextOverflow.ellipsis,
                                     style: textFontLow,
@@ -94,13 +105,13 @@ class DeckDisplayer extends StatelessWidget {
                                             Padding(
                                                 padding: const EdgeInsets.only(
                                                     right: 18),
-                                                child: Column(children: const [
+                                                child: Column(children:  [
                                                   Text(
-                                                    '102',
+                                                    widget.deck.sasRating.toString(),
                                                     textAlign: TextAlign.right,
                                                     style: textFontBold,
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     'SAS',
                                                     textAlign: TextAlign.right,
                                                     overflow:
@@ -108,13 +119,13 @@ class DeckDisplayer extends StatelessWidget {
                                                     style: textFontLow,
                                                   )
                                                 ])),
-                                            Column(children: const [
+                                            Column(children:  [
                                               Text(
-                                                '20',
+                                                widget.deck.rawAmber.toString(),
                                                 textAlign: TextAlign.right,
                                                 style: textFontBold,
                                               ),
-                                              Text(
+                                              const Text(
                                                 'Æmber',
                                                 textAlign: TextAlign.right,
                                                 overflow: TextOverflow.ellipsis,
