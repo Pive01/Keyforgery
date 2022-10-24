@@ -1,7 +1,7 @@
 import 'dart:core';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'HousesAndCards.dart';
+import '../HouseAndCards/HousesAndCards.dart';
 
 part 'Deck.g.dart';
 

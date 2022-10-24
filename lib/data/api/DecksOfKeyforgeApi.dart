@@ -2,9 +2,10 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/http.dart';
 
-import '../models/Deck.dart';
-import '../models/DokFilterWrappers/FilterWrapper.dart';
-import '../models/DokFilterWrappers/ReqBody/GetDecksReqBody.dart';
+import '../models/DeckModel/Deck/Deck.dart';
+import '../models/Wrappers/DokWrappers/DokFilterWrappers/FilterWrapper/FilterWrapper.dart';
+import '../models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
+
 
 part 'DecksOfKeyforgeApi.g.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/api/Api.dart';
-import 'package:keyforgery/widgets/DeckDisplayer.dart';
+import 'package:keyforgery/widgets/DeckDisplayer/DeckDisplayer.dart';
 
 import '../widgets/DeckList.dart';
 

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'GetDecksCardReqBody.dart';
-import 'GetDecksConstraintReqBody.dart';
+import '../GetDecksCardReqBody/GetDecksCardReqBody.dart';
+import '../GetDecksConstraintReqBody/GetDecksConstraintReqBody.dart';
 
 part 'GetDecksReqBody.g.dart';
 @JsonSerializable()

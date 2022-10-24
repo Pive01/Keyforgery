@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:keyforgery/data/models/Deck.dart';
 import 'package:keyforgery/utilities/LogoConverte.dart';
+import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
 
-import '../utilities/style.dart';
-import '../utilities/utils.dart';
+import '../../data/models/DeckModel/Deck/Deck.dart';
+import '../../utilities/style.dart';
+import '../../utilities/utils.dart';
 
 class DeckDisplayer extends StatefulWidget {
   const DeckDisplayer({super.key, required this.deck});
@@ -24,7 +24,7 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         print(widget.deck.name);
       },
       child: SizedBox(
@@ -66,47 +66,21 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                                     const EdgeInsets.only(bottom: 1, left: 20),
                                 child: Row(
                                   children: [
-                                    ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10000.0),
-                                        child: CachedNetworkImage(
-                                          width: 46,
-                                          height: 46,
-                                          imageUrl: LogoConverter.getLinkFromName(
-                                              widget
-                                                  .deck.housesAndCards[0].house),
-                                          placeholder: (context, url) =>
-                                              CircularProgressIndicator(),
-                                        )),
+                                    HouseLogoDisplay(
+                                        link: LogoConverter.getLinkFromName(
+                                            widget
+                                                .deck.housesAndCards[0].house)),
                                     Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 10, right: 10),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10000.0),
-                                          child: CachedNetworkImage(
-                                            width: 46,
-                                            height: 46,
-                                            imageUrl:
-                                                LogoConverter.getLinkFromName(
-                                                    widget.deck.housesAndCards[1]
-                                                        .house),
-                                            placeholder: (context, url) =>
-                                                CircularProgressIndicator(),
-                                          )),
-                                    ),
-                                    ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10000.0),
-                                        child: CachedNetworkImage(
-                                          width: 46,
-                                          height: 46,
-                                          imageUrl: LogoConverter.getLinkFromName(
-                                              widget
-                                                  .deck.housesAndCards[2].house),
-                                          placeholder: (context, url) =>
-                                              CircularProgressIndicator(),
-                                        )),
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: HouseLogoDisplay(
+                                            link: LogoConverter.getLinkFromName(
+                                                widget.deck.housesAndCards[1]
+                                                    .house))),
+                                    HouseLogoDisplay(
+                                        link: LogoConverter.getLinkFromName(
+                                            widget
+                                                .deck.housesAndCards[2].house)),
                                   ],
                                 ),
                               ),
@@ -136,18 +110,21 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      right: 18),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 18),
                                                   child: Column(children: [
                                                     Text(
                                                       widget.deck.sasRating
                                                           .toString(),
-                                                      textAlign: TextAlign.right,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       style: textFontBold,
                                                     ),
                                                     const Text(
                                                       'SAS',
-                                                      textAlign: TextAlign.right,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: textFontLow,
@@ -155,14 +132,16 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                                                   ])),
                                               Column(children: [
                                                 Text(
-                                                  widget.deck.rawAmber.toString(),
+                                                  widget.deck.rawAmber
+                                                      .toString(),
                                                   textAlign: TextAlign.right,
                                                   style: textFontBold,
                                                 ),
                                                 const Text(
                                                   'Æmber',
                                                   textAlign: TextAlign.right,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: textFontLow,
                                                 )
                                               ])

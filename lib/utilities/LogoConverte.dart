@@ -1,19 +1,20 @@
-import 'package:keyforgery/data/models/HouseWrapper.dart';
 
-String UNTAMED_LOGO = 'https://cdn.keyforgegame.com/media/houses/Untamed_bXh9SJD.png';
+import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
+
+const String untamedLogo = 'https://cdn.keyforgegame.com/media/houses/Untamed_bXh9SJD.png';
 class LogoConverter {
   static late HouseWrapper _data;
 
-  static void Init(HouseWrapper data) {
+  static void init(HouseWrapper data) {
     _data = data;
   }
 
   static String getLinkFromName(String houseName) {
     for (final house in _data.data) {
       if (house.name.split(' ').join() == houseName) {
-        return house.image != null ? house.image! : UNTAMED_LOGO;
+        return house.image != null ? house.image! : untamedLogo;
       }
     }
-    return UNTAMED_LOGO;
+    return untamedLogo;
   }
 }

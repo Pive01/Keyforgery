@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../Deck.dart';
+import '../../../../DeckModel/Deck/Deck.dart';
+
 part 'FilterWrapper.g.dart';
 
 @JsonSerializable()

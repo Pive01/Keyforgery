@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
-import '../models/Deck.dart';
-import '../models/DokFilterWrappers/FilterWrapper.dart';
-import '../models/DokFilterWrappers/ReqBody/GetDecksReqBody.dart';
-import '../models/HouseWrapper.dart';
+import '../models/DeckModel/Deck/Deck.dart';
+import '../models/Wrappers/DokWrappers/DokFilterWrappers/FilterWrapper/FilterWrapper.dart';
+import '../models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
+import '../models/Wrappers/HouseWrapper/HouseWrapper.dart';
 import 'DecksOfKeyforgeApi.dart';
 import 'MasterVaultApi.dart';
 

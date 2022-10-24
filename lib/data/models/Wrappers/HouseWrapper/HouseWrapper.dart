@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'House.dart';
+import '../../House/House.dart';
 
 part 'HouseWrapper.g.dart';
 @JsonSerializable()

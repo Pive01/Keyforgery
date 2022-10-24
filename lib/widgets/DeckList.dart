@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../data/models/Deck.dart';
-import 'DeckDisplayer.dart';
+import '../data/models/DeckModel/Deck/Deck.dart';
+import 'DeckDisplayer/DeckDisplayer.dart';
 
 class DeckList extends StatefulWidget {
   const DeckList({super.key, required this.deckList});

@@ -3,8 +3,10 @@ import 'package:keyforgery/data/api/Api.dart';
 import 'package:keyforgery/widgets/DeckList.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
-import '../data/models/Deck.dart';
-import '../data/models/DokFilterWrappers/ReqBody/GetDecksReqBody.dart';
+import '../data/models/DeckModel/Deck/Deck.dart';
+import '../data/models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
+
+
 
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
