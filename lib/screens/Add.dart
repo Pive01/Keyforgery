@@ -4,6 +4,7 @@ import 'package:keyforgery/widgets/DeckList.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import '../data/models/Deck.dart';
+import '../data/models/DokFilterWrappers/ReqBody/GetDecksReqBody.dart';
 
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
@@ -51,13 +52,16 @@ class _AddState extends State<Add> {
             width: 600,
             debounceDelay: const Duration(milliseconds: 100),
             onQueryChanged: (query) {
-              Api.getDecksByName(query).then(
+              Api.getDecksByNamePreview(query).then(
                   (value) => setState(() {
                         deckList = value;
                       }),
                   onError: (e) {});
             },
             onSubmitted: (query) {
+              Api.getDecksByName(GetDecksReqBody(title: query)).then((value) {
+                setState(() => (deckList = value.decks));
+              }, onError: (e) {});
               controller.close();
             },
 

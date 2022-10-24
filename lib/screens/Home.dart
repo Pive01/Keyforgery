@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         elevation: 12,
         onPressed: () {
-          Api.getDecksByName('Petra').then((value) => print(value));
+          Api.getDecksByNamePreview('Petra').then((value) => print(value));
         },
         child: const Icon(Icons.add),
       ),

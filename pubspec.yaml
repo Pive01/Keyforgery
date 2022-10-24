@@ -49,6 +49,7 @@ dependencies:
   localstore: ^1.2.3
   localstorage: ^4.0.0+1
   get_it: ^7.2.0
+  pretty_dio_logger: ^1.2.0-beta-1
 
 dev_dependencies:
   flutter_test:
