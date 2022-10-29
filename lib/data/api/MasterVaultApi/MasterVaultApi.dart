@@ -1,9 +1,8 @@
-
 import 'package:dio/dio.dart';
+import 'package:keyforgery/data/models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
 import 'package:retrofit/http.dart';
 
-import '../models/Wrappers/HouseWrapper/HouseWrapper.dart';
-
+import '../../models/Wrappers/HouseWrapper/HouseWrapper.dart';
 
 part 'MasterVaultApi.g.dart';
 
@@ -13,8 +12,7 @@ abstract class MasterVaultApi {
 
   @GET("decks/houses/")
   Future<HouseWrapper> getAllHouses();
-}
 
-class Api {
-
+  @GET("decks/{keyforgeId}/?links=cards")
+  Future<MVCardsWrapper> getCards(@Path("keyforgeId") String deckId);
 }

@@ -6,8 +6,6 @@ import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import '../data/models/DeckModel/Deck/Deck.dart';
 import '../data/models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
 
-
-
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
 
@@ -18,6 +16,7 @@ class Add extends StatefulWidget {
 class _AddState extends State<Add> {
   List<Deck> deckList = [];
   final controller = FloatingSearchBarController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +34,14 @@ class _AddState extends State<Add> {
               ),
               Expanded(
                 flex: 7,
-                child: DeckList(
-                  deckList: deckList,
-                ),
+                child: isLoading
+                    ? const Align(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(),
+                      )
+                    : DeckList(
+                        deckList: deckList,
+                      ),
               ),
             ],
           ),
@@ -53,16 +57,15 @@ class _AddState extends State<Add> {
             openAxisAlignment: 0.0,
             width: 600,
             debounceDelay: const Duration(milliseconds: 100),
-            onQueryChanged: (query) {
-              Api.getDecksByNamePreview(query).then(
-                  (value) => setState(() {
-                        deckList = value;
-                      }),
-                  onError: (e) {});
-            },
             onSubmitted: (query) {
+              setState(() {
+                isLoading = true;
+              });
               Api.getDecksByName(GetDecksReqBody(title: query)).then((value) {
-                setState(() => (deckList = value.decks));
+                setState(() {
+                  isLoading = false;
+                  deckList = value.decks;
+                });
               }, onError: (e) {});
               controller.close();
             },
