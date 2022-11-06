@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
 import 'DeckDisplayer/DeckDisplayer.dart';
 
 class DeckList extends StatefulWidget {
-  const DeckList({super.key, required this.deckList});
+  const DeckList({super.key, required this.deckList, this.callback});
 
   final List<Deck> deckList;
+  final callback;
 
   @override
   State<DeckList> createState() => _DeckListState();
@@ -15,20 +17,22 @@ class DeckList extends StatefulWidget {
 class _DeckListState extends State<DeckList> {
   @override
   Widget build(BuildContext context) {
-    return widget.deckList.isNotEmpty ?
-    ListView.separated(
-      padding: const EdgeInsets.only(top: 2, left: 5, right: 5),
-      itemBuilder: (context, position) {
-        return DeckDisplayer(deck:widget.deckList.elementAt(position));
-      },
-      itemCount: widget.deckList.length,
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 10,
-      ),
-    ) :
-        const Center(
-          child: Text('Nothing to display here'),
-        )
-    ;
+    return widget.deckList.isNotEmpty
+        ? ListView.separated(
+            padding: const EdgeInsets.only(top: 2),
+            itemBuilder: (context, position) {
+              return DeckDisplayer(
+                deck: widget.deckList.elementAt(position),
+                callBack: widget.callback,
+              );
+            },
+            itemCount: widget.deckList.length,
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 10,
+            ),
+          )
+        : const Center(
+            child: Text('Nothing to display here'),
+          );
   }
 }

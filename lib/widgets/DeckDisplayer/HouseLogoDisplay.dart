@@ -16,8 +16,8 @@ class _HouseLogoDisplayState extends State<HouseLogoDisplay> {
     return ClipRRect(
         borderRadius: BorderRadius.circular(10000.0),
         child: CachedNetworkImage(
-          width: 46,
-          height: 46,
+          width: 35,
+          height: 35,
           imageUrl: widget.link,
           placeholder: (context, url) => const CircularProgressIndicator(),
         ));

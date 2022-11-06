@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keyforgery/screens/Home.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../screens/Add.dart';
+import '../screens/Search.dart';
 
 class MainBottomNavBar extends StatefulWidget {
   const MainBottomNavBar({Key? key}) : super(key: key);
@@ -15,11 +15,12 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Add(),
+    Search(),
+    Scaffold(),
     Scaffold(),
   ];
 
-  void _onItemTapped(int index) {
+  void setPage(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -37,6 +38,11 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor:Colors.white,
         elevation: 0,
         items: [
           BottomNavigationBarItem(
@@ -46,16 +52,21 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
               label: 'Home'),
           BottomNavigationBarItem(
               icon: Icon(
-                  _selectedIndex == 1 ? Icons.add_box : Icons.add_box_outlined),
-              label: 'Add'),
+                  _selectedIndex == 1 ? Icons.search : Icons.search_outlined),
+              label: 'Search'),
           BottomNavigationBarItem(
               icon: Icon(_selectedIndex == 2
-                  ? MdiIcons.gamepadVariant
-                  : MdiIcons.gamepadVariantOutline),
-              label: 'Play'),
+                  ? MdiIcons.viewDashboard
+                  : MdiIcons.viewDashboardOutline),
+              label: 'Groups'),
+          BottomNavigationBarItem(
+              icon: Icon(_selectedIndex == 3
+                  ? Icons.settings
+                  : Icons.settings_outlined),
+              label: 'Settings'),
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: setPage,
       ),
     );
   }

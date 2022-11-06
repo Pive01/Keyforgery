@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:keyforgery/screens/MainView.dart';
 import 'package:keyforgery/screens/Splash.dart';
-import 'package:keyforgery/widgets/MainBottomNavBar.dart';
+import 'package:keyforgery/utilities/style.dart';
 
 void main() {
   runApp(SplashScreen(
@@ -20,7 +19,7 @@ void runMainApp() {
     darkTheme: ThemeData(
       brightness: Brightness.dark,
     ),
-    themeMode: ThemeMode.system,
+    themeMode: ThemeMode.dark,
     home: const MainView(),
   ));
 }

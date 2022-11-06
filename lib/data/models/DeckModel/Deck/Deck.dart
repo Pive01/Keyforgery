@@ -1,12 +1,15 @@
 import 'dart:core';
+import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../HouseAndCards/HousesAndCards.dart';
 
 part 'Deck.g.dart';
 
+@Entity(tableName: "decks")
 @JsonSerializable()
 class Deck {
+  @PrimaryKey()
   int id;
   String keyforgeId;
   String name;
@@ -28,12 +31,14 @@ class Deck {
   double synergyRating;
   double antisynergyRating;
 
-  // Meta metaScores;
+  int? localWins;
+  int? localLosses;
   double efficiencyBonus;
   int totalPower;
   int rawAmber;
   double sasPercentile;
   List<HousesAndCards> housesAndCards;
+
 
   Deck(
       this.id,
@@ -56,6 +61,8 @@ class Deck {
       this.sasRating,
       this.synergyRating,
       this.antisynergyRating,
+      this.localWins,
+      this.localLosses,
       this.efficiencyBonus,
       this.totalPower,
       this.rawAmber,

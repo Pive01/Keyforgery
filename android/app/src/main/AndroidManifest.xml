@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.keyforgery">
+    package="com.KeyforgeManagement.application">
    <application
         android:label="keyforgery"
         android:name="${applicationName}"

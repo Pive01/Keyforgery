@@ -12,7 +12,7 @@ class LogoConverter {
   static String getLinkFromName(String houseName) {
     for (final house in _data.data) {
       if (house.name.split(' ').join() == houseName) {
-        return house.image != null ? house.image! : untamedLogo;
+        return  house.image ?? untamedLogo;
       }
     }
     return untamedLogo;

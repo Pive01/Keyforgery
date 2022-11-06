@@ -1,9 +1,12 @@
+import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Card.g.dart';
 
+@Entity(tableName: "cards")
 @JsonSerializable()
 class Card{
+  @PrimaryKey()
   String id;
   String card_title;
   String house;
@@ -42,11 +45,6 @@ class Card{
       this.is_anomaly,
       this.is_enhanced,
       this.is_non_deck);
-
-  @override
-  String toString() {
-    return 'Card{id: $id, card_title: $card_title, house: $house, card_type: $card_type, front_image: $front_image, card_text: $card_text, traits: $traits, amber: $amber, power: $power, armor: $armor, rarity: $rarity, flavor_text: $flavor_text, card_number: $card_number, expansion: $expansion, is_maverick: $is_maverick, is_anomaly: $is_anomaly, is_enhanced: $is_enhanced, is_non_deck: $is_non_deck}';
-  }
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
   Map<String, dynamic> toJson() => _$CardToJson(this);

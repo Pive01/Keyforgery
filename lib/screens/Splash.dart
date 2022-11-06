@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../data/api/Api.dart';
 import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
+import '../data/storage/Database/DecksDatabase.dart';
 import '../utilities/LogoConverte.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _initializeAsyncDependencies() async {
     HouseWrapper houses = await Api.getAllHouses();
     LogoConverter.init(houses);
+    await DecksDatabase.getDatabase();
     widget.onInitializationComplete();
   }
 

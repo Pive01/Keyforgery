@@ -1,4 +1,4 @@
-package com.example.keyforgery
+package com.KeyforgeManagement.application
 
 import io.flutter.embedding.android.FlutterActivity
 
