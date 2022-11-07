@@ -6,6 +6,11 @@ const textFontBold = TextStyle(
   color: Colors.white,
   fontSize: 23,
 );
+const textFontBig = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+  fontSize: 33,
+);
 const textFontBoldDark = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.black,

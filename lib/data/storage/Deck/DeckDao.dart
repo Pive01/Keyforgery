@@ -14,11 +14,8 @@ abstract class DeckDao {
   @Query("select * from decks ORDER BY sasRating DESC,rawAmber DESC")
   Stream<List<Deck>> getDecks();
 
-  @Query("UPDATE decks SET localWins=:wins WHERE id=:id")
-  Future<void> updateWins(int wins, int id);
-
-  @Query("UPDATE decks SET localLosses=:loss WHERE id=:id")
-  Future<void> updateLosses(int loss, int id);
+  @update
+  Future<void> updateDeck(Deck deck);
 
   @Insert(onConflict: OnConflictStrategy.ignore)
   Future<void> bulkAdd(List<Deck> deckCollection);

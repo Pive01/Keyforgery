@@ -82,8 +82,8 @@ class _SearchState extends State<Search> {
                         child: const Text('Cancel'),
                       ),
                       TextButton(
-                        onPressed: () async {
-                          final database = await DecksDatabase.getDatabase();
+                        onPressed: () {
+                          final database = DecksDatabase.getSyncDB();
                           final decksDao = database.deckDao;
                           decksDao.addDeck(deck).then(
                                 (value) => Navigator.pop(context, 'Added'),

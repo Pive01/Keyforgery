@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keyforgery/utilities/LogoConverte.dart';
 import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
-import 'package:keyforgery/widgets/DeckList.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../data/models/DeckModel/Deck/Deck.dart';
@@ -9,11 +8,10 @@ import '../../utilities/style.dart';
 import '../../utilities/utils.dart';
 
 class DeckDisplayer extends StatefulWidget {
-  const DeckDisplayer({super.key, required this.deck,this.callBack, this.isSearching = true});
+  const DeckDisplayer({super.key, required this.deck, required this.callBack});
 
   final Deck deck;
-  final isSearching;
-  final callBack;
+  final Function callBack;
 
   @override
   State<DeckDisplayer> createState() => _DeckDisplayerState();
@@ -23,16 +21,31 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
   @override
   void initState() {
     super.initState();
+    refreshIsIndicatorStatus();
   }
+
+  void refreshIsIndicatorStatus() {
+    isGrey =
+        !(widget.deck.localLosses != null && widget.deck.localLosses! > 0 ||
+            widget.deck.localWins != null && widget.deck.localWins! > 0);
+    _percentage = isGrey
+        ? 0
+        : (widget.deck.localWins ?? 0) /
+            ((widget.deck.localWins ?? 0) + (widget.deck.localLosses ?? 0));
+  }
+
+  late bool isGrey;
+  late double _percentage;
 
   @override
   Widget build(BuildContext context) {
+    refreshIsIndicatorStatus();
     return GestureDetector(
       onTap: () {
         widget.callBack(widget.deck);
       },
       child: SizedBox(
-        height:124,
+        height: 124,
         child: Card(
           color: Theme.of(context).primaryColor,
           elevation: 8,
@@ -66,17 +79,16 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                         Expanded(
                           flex: 1,
                           child: LinearPercentIndicator(
-                            padding: EdgeInsets.only(bottom: 15),
+                            padding: const EdgeInsets.only(bottom: 15),
                             animation: true,
+                            animateFromLastPercent: true,
                             lineHeight: 20.0,
                             animationDuration: 1000,
                             barRadius: const Radius.circular(100),
-                            percent: 0.38,
-                            backgroundColor: widget.isSearching
-                                ? Colors.grey
-                                : Colors.redAccent,
-                            progressColor:
-                                widget.isSearching ? Colors.grey : Colors.green,
+                            percent: _percentage,
+                            backgroundColor:
+                                isGrey ? Colors.grey : Colors.redAccent,
+                            progressColor: isGrey ? Colors.grey : Colors.green,
                           ),
                         )
                       ],
@@ -90,7 +102,8 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                               link: LogoConverter.getLinkFromName(
                                   widget.deck.housesAndCards[0].house)),
                           Padding(
-                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
                               child: HouseLogoDisplay(
                                   link: LogoConverter.getLinkFromName(
                                       widget.deck.housesAndCards[1].house))),

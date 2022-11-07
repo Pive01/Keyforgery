@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _initializeAsyncDependencies() async {
     HouseWrapper houses = await Api.getAllHouses();
     LogoConverter.init(houses);
-    await DecksDatabase.getDatabase();
+    await DecksDatabase.initDatabase();
     widget.onInitializationComplete();
   }
 

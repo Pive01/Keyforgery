@@ -26,17 +26,16 @@ class Deck {
   double? creatureProtection;
   double? disruption;
   double? aercScore;
-  int aercVersion;
   int sasRating;
   double synergyRating;
   double antisynergyRating;
-
   int? localWins;
   int? localLosses;
   double efficiencyBonus;
   int totalPower;
   int rawAmber;
-  double sasPercentile;
+  double? sasPercentile;
+  @ColumnInfo(name: "houses")
   List<HousesAndCards> housesAndCards;
 
 
@@ -57,7 +56,6 @@ class Deck {
       this.creatureProtection,
       this.disruption,
       this.aercScore,
-      this.aercVersion,
       this.sasRating,
       this.synergyRating,
       this.antisynergyRating,

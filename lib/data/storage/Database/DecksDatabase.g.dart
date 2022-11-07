@@ -73,7 +73,7 @@ class _$DecksDatabase extends DecksDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -89,7 +89,7 @@ class _$DecksDatabase extends DecksDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `decks` (`id` INTEGER NOT NULL, `keyforgeId` TEXT NOT NULL, `name` TEXT NOT NULL, `expansion` TEXT NOT NULL, `creatureCount` INTEGER NOT NULL, `actionCount` INTEGER NOT NULL, `artifactCount` INTEGER, `expectedAmber` REAL NOT NULL, `amberControl` REAL NOT NULL, `creatureControl` REAL, `artifactControl` REAL, `efficiency` REAL, `effectivePower` INTEGER, `creatureProtection` REAL, `disruption` REAL, `aercScore` REAL, `aercVersion` INTEGER NOT NULL, `sasRating` INTEGER NOT NULL, `synergyRating` REAL NOT NULL, `antisynergyRating` REAL NOT NULL, `localWins` INTEGER, `localLosses` INTEGER, `efficiencyBonus` REAL NOT NULL, `totalPower` INTEGER NOT NULL, `rawAmber` INTEGER NOT NULL, `sasPercentile` REAL NOT NULL, `housesAndCards` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `decks` (`id` INTEGER NOT NULL, `keyforgeId` TEXT NOT NULL, `name` TEXT NOT NULL, `expansion` TEXT NOT NULL, `creatureCount` INTEGER NOT NULL, `actionCount` INTEGER NOT NULL, `artifactCount` INTEGER, `expectedAmber` REAL NOT NULL, `amberControl` REAL NOT NULL, `creatureControl` REAL, `artifactControl` REAL, `efficiency` REAL, `effectivePower` INTEGER, `creatureProtection` REAL, `disruption` REAL, `aercScore` REAL, `sasRating` INTEGER NOT NULL, `synergyRating` REAL NOT NULL, `antisynergyRating` REAL NOT NULL, `localWins` INTEGER, `localLosses` INTEGER, `efficiencyBonus` REAL NOT NULL, `totalPower` INTEGER NOT NULL, `rawAmber` INTEGER NOT NULL, `sasPercentile` REAL, `houses` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `cards` (`id` TEXT NOT NULL, `card_title` TEXT NOT NULL, `house` TEXT NOT NULL, `card_type` TEXT NOT NULL, `front_image` TEXT NOT NULL, `card_text` TEXT NOT NULL, `traits` TEXT NOT NULL, `amber` INTEGER NOT NULL, `power` TEXT NOT NULL, `armor` TEXT NOT NULL, `rarity` TEXT NOT NULL, `flavor_text` TEXT NOT NULL, `card_number` TEXT NOT NULL, `expansion` INTEGER NOT NULL, `is_maverick` INTEGER NOT NULL, `is_anomaly` INTEGER NOT NULL, `is_enhanced` INTEGER NOT NULL, `is_non_deck` INTEGER NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
@@ -143,7 +143,6 @@ class _$DeckDao extends DeckDao {
                   'creatureProtection': item.creatureProtection,
                   'disruption': item.disruption,
                   'aercScore': item.aercScore,
-                  'aercVersion': item.aercVersion,
                   'sasRating': item.sasRating,
                   'synergyRating': item.synergyRating,
                   'antisynergyRating': item.antisynergyRating,
@@ -153,8 +152,7 @@ class _$DeckDao extends DeckDao {
                   'totalPower': item.totalPower,
                   'rawAmber': item.rawAmber,
                   'sasPercentile': item.sasPercentile,
-                  'housesAndCards':
-                      _houseArrayTypeConverter.encode(item.housesAndCards)
+                  'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
                 },
             changeListener),
         _deckDeletionAdapter = DeletionAdapter(
@@ -178,7 +176,6 @@ class _$DeckDao extends DeckDao {
                   'creatureProtection': item.creatureProtection,
                   'disruption': item.disruption,
                   'aercScore': item.aercScore,
-                  'aercVersion': item.aercVersion,
                   'sasRating': item.sasRating,
                   'synergyRating': item.synergyRating,
                   'antisynergyRating': item.antisynergyRating,
@@ -188,8 +185,7 @@ class _$DeckDao extends DeckDao {
                   'totalPower': item.totalPower,
                   'rawAmber': item.rawAmber,
                   'sasPercentile': item.sasPercentile,
-                  'housesAndCards':
-                      _houseArrayTypeConverter.encode(item.housesAndCards)
+                  'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
                 },
             changeListener);
 
@@ -224,7 +220,6 @@ class _$DeckDao extends DeckDao {
             row['creatureProtection'] as double?,
             row['disruption'] as double?,
             row['aercScore'] as double?,
-            row['aercVersion'] as int,
             row['sasRating'] as int,
             row['synergyRating'] as double,
             row['antisynergyRating'] as double,
@@ -233,30 +228,10 @@ class _$DeckDao extends DeckDao {
             row['efficiencyBonus'] as double,
             row['totalPower'] as int,
             row['rawAmber'] as int,
-            row['sasPercentile'] as double,
-            _houseArrayTypeConverter.decode(row['housesAndCards'] as String)),
+            row['sasPercentile'] as double?,
+            _houseArrayTypeConverter.decode(row['houses'] as String)),
         queryableName: 'decks',
         isView: false);
-  }
-
-  @override
-  Future<void> updateWins(
-    int wins,
-    int id,
-  ) async {
-    await _queryAdapter.queryNoReturn(
-        'UPDATE decks SET localWins=?1 WHERE id=?2',
-        arguments: [wins, id]);
-  }
-
-  @override
-  Future<void> updateLosses(
-    int loss,
-    int id,
-  ) async {
-    await _queryAdapter.queryNoReturn(
-        'UPDATE decks SET localLosses=?1 WHERE id=?2',
-        arguments: [loss, id]);
   }
 
   @override
@@ -324,6 +299,11 @@ class _$DeckDao extends DeckDao {
   @override
   Future<void> addDeck(Deck deck) async {
     await _deckInsertionAdapter.insert(deck, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<void> updateDeck(Deck deck) async {
+    await _deckInsertionAdapter.insert(deck, OnConflictStrategy.replace);
   }
 
   @override

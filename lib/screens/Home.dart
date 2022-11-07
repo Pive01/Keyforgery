@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyforgery/screens/DeckInfo.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
 import '../data/storage/Database/DecksDatabase.dart';
@@ -30,8 +31,14 @@ class _HomeState extends State<Home> {
           stream: database.deckDao.getDecks(),
           builder: (context, snapshot) {
             return DeckList(
-              deckList: snapshot.data ?? [],
-            );
+                deckList: snapshot.data ?? [],
+                callback: (Deck selectedDeck) => {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DeckInfo(deck: selectedDeck))),
+                    });
           }),
     );
   }

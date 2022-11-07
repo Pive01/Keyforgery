@@ -23,7 +23,6 @@ Deck _$DeckFromJson(Map<String, dynamic> json) => Deck(
       (json['creatureProtection'] as num?)?.toDouble(),
       (json['disruption'] as num?)?.toDouble(),
       (json['aercScore'] as num?)?.toDouble(),
-      json['aercVersion'] as int,
       json['sasRating'] as int,
       (json['synergyRating'] as num).toDouble(),
       (json['antisynergyRating'] as num).toDouble(),
@@ -32,7 +31,7 @@ Deck _$DeckFromJson(Map<String, dynamic> json) => Deck(
       (json['efficiencyBonus'] as num).toDouble(),
       json['totalPower'] as int,
       json['rawAmber'] as int,
-      (json['sasPercentile'] as num).toDouble(),
+      (json['sasPercentile'] as num?)?.toDouble(),
       (json['housesAndCards'] as List<dynamic>)
           .map((e) => HousesAndCards.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -55,7 +54,6 @@ Map<String, dynamic> _$DeckToJson(Deck instance) => <String, dynamic>{
       'creatureProtection': instance.creatureProtection,
       'disruption': instance.disruption,
       'aercScore': instance.aercScore,
-      'aercVersion': instance.aercVersion,
       'sasRating': instance.sasRating,
       'synergyRating': instance.synergyRating,
       'antisynergyRating': instance.antisynergyRating,

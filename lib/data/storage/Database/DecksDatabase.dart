@@ -14,25 +14,28 @@ import '../DeckWithCards/DeckWithCardsDao.dart';
 part 'DecksDatabase.g.dart';
 
 @TypeConverters([HouseArrayTypeConverter])
-@Database(version: 1, entities: [Deck,Card,CardsDeckRef])
+@Database(version: 1, entities: [Deck, Card, CardsDeckRef])
 abstract class DecksDatabase extends FloorDatabase {
-
   static late final _database;
-  static bool _isInitialized =false;
+  static bool _isInitialized = false;
 
-  static Future<DecksDatabase> getDatabase() async {
-    if(!_isInitialized){
-      _database = await $FloorDecksDatabase.databaseBuilder('app_database.db').build();
-      _isInitialized= true;
+  static Future<void> initDatabase() async {
+    if (!_isInitialized) {
+      _database = await $FloorDecksDatabase
+          .databaseBuilder('deck_database').build();
+      _isInitialized = true;
     }
-    return _database;
   }
 
   static DecksDatabase getSyncDB() {
     return _database;
   }
 
+
+
   DeckDao get deckDao;
+
   CardDao get cardDao;
+
   DeckWithCardsDao get deckWithCardsDao;
 }

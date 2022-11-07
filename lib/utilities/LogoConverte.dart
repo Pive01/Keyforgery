@@ -1,4 +1,6 @@
 
+import 'package:keyforgery/utilities/utils.dart';
+
 import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
 
 const String untamedLogo = 'https://cdn.keyforgegame.com/media/houses/Untamed_bXh9SJD.png';
@@ -11,7 +13,7 @@ class LogoConverter {
 
   static String getLinkFromName(String houseName) {
     for (final house in _data.data) {
-      if (house.name.split(' ').join() == houseName) {
+      if (house.name.split(' ').join() == houseName.capitalize()) {
         return  house.image ?? untamedLogo;
       }
     }
