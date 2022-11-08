@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keyforgery/screens/Home.dart';
+import 'package:keyforgery/screens/Settings.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../screens/Search.dart';
@@ -17,7 +18,7 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
     Home(),
     Search(),
     Scaffold(),
-    Scaffold(),
+    Settings(),
   ];
 
   void setPage(int index) {

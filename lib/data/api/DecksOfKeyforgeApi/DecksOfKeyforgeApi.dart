@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:retrofit/http.dart';
+import 'package:keyforgery/data/models/Wrappers/DokWrappers/WithSynergiesWrapper.dart';
+import 'package:retrofit/retrofit.dart';
 
 import '../../models/DeckModel/Deck/Deck.dart';
 import '../../models/Validator/UserValidator.dart';
@@ -15,6 +16,9 @@ abstract class DecksOfKeyforgeApi {
   @GET("decks/by-name/{name}")
   Future<List<Deck>> getDecksByNamePreview(@Path("name") String name);
 
+  @GET("decks/with-synergies/{id}")
+  Future<WithSynergiesWrapper> getDeckById(@Path("id") String id);
+
   @POST("decks/filter")
   Future<FilterWrapper> getDecksByName(@Body() GetDecksReqBody body);
 
@@ -22,5 +26,5 @@ abstract class DecksOfKeyforgeApi {
   Future<FilterWrapper> importDecks(@Body() GetDecksReqBody body);
 
   @POST("users/login")
-  Future<void> getAuthorization(@Body() UserValidator usr);
+  Future<HttpResponse<void>> getAuthorization(@Body() UserValidator usr);
 }

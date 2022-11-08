@@ -8,10 +8,11 @@ import '../../utilities/style.dart';
 import '../../utilities/utils.dart';
 
 class DeckDisplayer extends StatefulWidget {
-  const DeckDisplayer({super.key, required this.deck, required this.callBack});
+  const DeckDisplayer({super.key, required this.deck, required this.callBack,required this.callBackLong });
 
   final Deck deck;
   final Function callBack;
+  final Function callBackLong;
 
   @override
   State<DeckDisplayer> createState() => _DeckDisplayerState();
@@ -43,6 +44,9 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
     return GestureDetector(
       onTap: () {
         widget.callBack(widget.deck);
+      },
+      onLongPress: (){
+        widget.callBackLong(widget.deck);
       },
       child: SizedBox(
         height: 124,

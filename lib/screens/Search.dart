@@ -36,8 +36,7 @@ class _SearchState extends State<Search> {
                     setState(() {
                       isLoading = true;
                     });
-                    Api.getDecksByName(GetDecksReqBody(title: query)).then(
-                        (value) {
+                    Api.getDecksByName(GetDecksReqBody(title: query)).then((value) {
                       setState(() {
                         isLoading = false;
                         deckList = value.decks;
@@ -49,12 +48,9 @@ class _SearchState extends State<Search> {
                   },
                   decoration: InputDecoration(
                     filled: true,
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 15.0),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 15.0),
                     hintText: "Search...",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(45.0),
-                        borderSide: BorderSide.none),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(45.0), borderSide: BorderSide.none),
                     suffixIcon: const Icon(Icons.search),
                   ),
                 ),
@@ -72,8 +68,7 @@ class _SearchState extends State<Search> {
                 callback: (Deck deck) => showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
                     title: const Text('Add to library'),
                     content: Text(deck.name),
                     actions: <Widget>[
@@ -94,6 +89,7 @@ class _SearchState extends State<Search> {
                     ],
                   ),
                 ),
+                callbackLong: () {},
               ),
       ),
     );

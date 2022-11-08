@@ -12,7 +12,10 @@ abstract class DeckDao {
   Future<void> addDeck(Deck deck);
 
   @Query("select * from decks ORDER BY sasRating DESC,rawAmber DESC")
-  Stream<List<Deck>> getDecks();
+  Stream<List<Deck>> getDecksAsStream();
+
+  @Query("select * from decks ORDER BY sasRating DESC,rawAmber DESC")
+  Future<List<Deck>> getDecksAsList();
 
   @update
   Future<void> updateDeck(Deck deck);

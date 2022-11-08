@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:keyforgery/screens/Drawer.dart';
-import 'package:keyforgery/screens/Settings.dart';
 import 'package:keyforgery/widgets/MainBottomNavBar.dart';
 
 import '../utilities/style.dart';
@@ -12,7 +10,6 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: MainBottomNavBar(),
-      drawer: CustomDrawer()
     );
   }
 }

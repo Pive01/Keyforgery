@@ -73,7 +73,7 @@ class _$DecksDatabase extends DecksDatabase {
     Callback? callback,
   ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 2,
+      version: 1,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
         await callback?.onConfigure?.call(database);
@@ -155,6 +155,39 @@ class _$DeckDao extends DeckDao {
                   'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
                 },
             changeListener),
+        _deckUpdateAdapter = UpdateAdapter(
+            database,
+            'decks',
+            ['id'],
+            (Deck item) => <String, Object?>{
+                  'id': item.id,
+                  'keyforgeId': item.keyforgeId,
+                  'name': item.name,
+                  'expansion': item.expansion,
+                  'creatureCount': item.creatureCount,
+                  'actionCount': item.actionCount,
+                  'artifactCount': item.artifactCount,
+                  'expectedAmber': item.expectedAmber,
+                  'amberControl': item.amberControl,
+                  'creatureControl': item.creatureControl,
+                  'artifactControl': item.artifactControl,
+                  'efficiency': item.efficiency,
+                  'effectivePower': item.effectivePower,
+                  'creatureProtection': item.creatureProtection,
+                  'disruption': item.disruption,
+                  'aercScore': item.aercScore,
+                  'sasRating': item.sasRating,
+                  'synergyRating': item.synergyRating,
+                  'antisynergyRating': item.antisynergyRating,
+                  'localWins': item.localWins,
+                  'localLosses': item.localLosses,
+                  'efficiencyBonus': item.efficiencyBonus,
+                  'totalPower': item.totalPower,
+                  'rawAmber': item.rawAmber,
+                  'sasPercentile': item.sasPercentile,
+                  'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
+                },
+            changeListener),
         _deckDeletionAdapter = DeletionAdapter(
             database,
             'decks',
@@ -197,10 +230,12 @@ class _$DeckDao extends DeckDao {
 
   final InsertionAdapter<Deck> _deckInsertionAdapter;
 
+  final UpdateAdapter<Deck> _deckUpdateAdapter;
+
   final DeletionAdapter<Deck> _deckDeletionAdapter;
 
   @override
-  Stream<List<Deck>> getDecks() {
+  Stream<List<Deck>> getDecksAsStream() {
     return _queryAdapter.queryListStream(
         'select * from decks ORDER BY sasRating DESC,rawAmber DESC',
         mapper: (Map<String, Object?> row) => Deck(
@@ -232,6 +267,39 @@ class _$DeckDao extends DeckDao {
             _houseArrayTypeConverter.decode(row['houses'] as String)),
         queryableName: 'decks',
         isView: false);
+  }
+
+  @override
+  Future<List<Deck>> getDecksAsList() async {
+    return _queryAdapter.queryList(
+        'select * from decks ORDER BY sasRating DESC,rawAmber DESC',
+        mapper: (Map<String, Object?> row) => Deck(
+            row['id'] as int,
+            row['keyforgeId'] as String,
+            row['name'] as String,
+            row['expansion'] as String,
+            row['creatureCount'] as int,
+            row['actionCount'] as int,
+            row['artifactCount'] as int?,
+            row['expectedAmber'] as double,
+            row['amberControl'] as double,
+            row['creatureControl'] as double?,
+            row['artifactControl'] as double?,
+            row['efficiency'] as double?,
+            row['effectivePower'] as int?,
+            row['creatureProtection'] as double?,
+            row['disruption'] as double?,
+            row['aercScore'] as double?,
+            row['sasRating'] as int,
+            row['synergyRating'] as double,
+            row['antisynergyRating'] as double,
+            row['localWins'] as int?,
+            row['localLosses'] as int?,
+            row['efficiencyBonus'] as double,
+            row['totalPower'] as int,
+            row['rawAmber'] as int,
+            row['sasPercentile'] as double?,
+            _houseArrayTypeConverter.decode(row['houses'] as String)));
   }
 
   @override
@@ -302,14 +370,14 @@ class _$DeckDao extends DeckDao {
   }
 
   @override
-  Future<void> updateDeck(Deck deck) async {
-    await _deckInsertionAdapter.insert(deck, OnConflictStrategy.replace);
-  }
-
-  @override
   Future<void> bulkAdd(List<Deck> deckCollection) async {
     await _deckInsertionAdapter.insertList(
         deckCollection, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<void> updateDeck(Deck deck) async {
+    await _deckUpdateAdapter.update(deck, OnConflictStrategy.abort);
   }
 
   @override
