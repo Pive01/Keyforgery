@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:keyforgery/data/api/TheCrucible/TheCrucibleApi.dart';
 import 'package:keyforgery/data/models/Validator/CrucibleLogin.dart';
 import 'package:keyforgery/data/models/Validator/UserValidator.dart';
+import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshToken.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/DeckModel/Deck/Deck.dart';
@@ -13,6 +14,7 @@ import '../models/Wrappers/DokWrappers/WithSynergiesWrapper.dart';
 import '../models/Wrappers/HouseWrapper/HouseWrapper.dart';
 import '../models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
 import '../models/Wrappers/TheCrucibleWrapper/CrucibleDecksWrapper/CrucibleDecksWrapper.dart';
+import '../models/Wrappers/TheCrucibleWrapper/TokenWrapper/LoggedTokenWrapper.dart';
 import '../models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshTokenWrapper.dart';
 import '../models/Wrappers/TheCrucibleWrapper/TokenWrapper/TokenWrapper.dart';
 import 'DecksOfKeyforgeApi/DecksOfKeyforgeApi.dart';
@@ -61,8 +63,8 @@ class Api {
     return theCrucibleClient.getCrucibleDecks(token);
   }
 
-  static Future<void> sendToken(RefreshTokenWrapper token) {
-    return theCrucibleClient.sendToken(token);
+  static Future<LoggedTokenWrapper> sendRefreshToken(RefreshTokenWrapper token) {
+    return theCrucibleClient.refreshAuthorization(token);
   }
 
 }

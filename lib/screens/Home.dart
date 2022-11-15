@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/api/Api.dart';
 import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/CrucibleDecksWrapper/CrucibleDecksWrapper.dart';
+import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshToken.dart';
 import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/TokenWrapper.dart';
 import 'package:keyforgery/screens/DeckInfo.dart';
+import 'package:keyforgery/utilities/utils.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
 import '../data/models/Validator/CrucibleLogin.dart';
@@ -32,19 +34,8 @@ class _HomeState extends State<Home> {
                 : textFontBoldDark),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () async {
-        TokenWrapper token =
-            await Api.getCrucibleToken(CrucibleLogin('Pive', 'Ciaolol123'));
-        Deck deck;
-        CrucibleDecksWrapper cDecks =
-            await Api.getCrucibleDecks("Bearer ${token.token}");
-        cDecks.decks.forEach((element) {
-          Api.getDeckById(element.uuid).then((value) {
-            deck = value.deck;
-            deck.localWins = int.parse(element.wins);
-            deck.localLosses = int.parse(element.losses);
-            deckDao.addDeck(deck);
-          });
-        });
+        await SharedPrefs.setRefreshToken(RefreshToken(3, "a", "b"));
+        SharedPrefs.getRefreshToken().then((value) => print(value));
       }),
       body: StreamBuilder<List<Deck>>(
           stream: deckDao.getDecksAsStream(),

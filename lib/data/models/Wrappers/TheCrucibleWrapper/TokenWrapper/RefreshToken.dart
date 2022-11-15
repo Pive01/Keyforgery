@@ -11,6 +11,11 @@ class RefreshToken{
 
   RefreshToken(this.id, this.username, this.token);
 
+  @override
+  String toString() {
+    return 'RefreshToken{id: $id, username: $username, token: $token}';
+  }
+
   factory RefreshToken.fromJson(Map<String, dynamic> json) => _$RefreshTokenFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenToJson(this);
 }

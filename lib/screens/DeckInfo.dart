@@ -71,7 +71,7 @@ class _DeckInfoState extends State<DeckInfo> {
                             builder: (BuildContext context,
                                 StateSetter setModalState) {
                               return Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(20.0),
                                   child: Wrap(
                                       spacing: 20,
                                       // to apply margin in the main axis of the wrap

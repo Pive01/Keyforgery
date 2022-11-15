@@ -11,6 +11,11 @@ class RefreshTokenWrapper{
 
   RefreshTokenWrapper(this.token);
 
+  @override
+  String toString() {
+    return 'RefreshTokenWrapper{token: $token}';
+  }
+
   factory RefreshTokenWrapper.fromJson(Map<String, dynamic> json) => _$RefreshTokenWrapperFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenWrapperToJson(this);
 }

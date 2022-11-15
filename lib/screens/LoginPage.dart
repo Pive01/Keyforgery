@@ -1,15 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utilities/style.dart';
-import 'Home.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key, required this.headerText, required this.callback}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key, required this.headerText, required this.callback}) : super(key: key);
   final String headerText;
   final Function callback;
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
+
   final passwordController = TextEditingController();
+
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,59 +29,63 @@ class LoginPage extends StatelessWidget {
       body: Container(
         color: Theme.of(context).primaryColor,
         height: double.infinity,
+        width: double.infinity,
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 60.0),
-              child: Center(
-                  child: Text(
-                headerText,
-                style: textFontBig,
-              )),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextField(
+              padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0,bottom: 30),
+                    child: Text(
+                      widget.headerText,
+                      style: textFontBig,
+                    ),
+                  ),
+                  TextField(
                     controller: usernameController,
                     decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Username'),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
-                  //padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: TextField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Password'),
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  height: 50,
-                  width: 250,
-                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-                  child: OutlinedButton(
-                    style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ))),
-                    onPressed: () {
-                      callback(usernameController.text, passwordController.text);
-                    },
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(color: Colors.white, fontSize: 25),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: TextField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Password'),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      widget.callback(usernameController.text, passwordController.text,isChecked);
+                    },
+                    style:
+                        ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue), minimumSize: MaterialStateProperty.all(const Size.fromHeight(0))),
+                    child: const Text(
+                      "Login",
+                      style: textFontBold,
+                    ),
+                  ),
+                ],
+              ),
             ),
+            CheckboxListTile(
+                contentPadding: const EdgeInsets.only(left: 24,right: 24,top: 5),
+                controlAffinity: ListTileControlAffinity.leading,
+                title: const Text("Keep me logged"),
+                subtitle: const Text("Keyforgery will add your new w/l automatically"),
+                value: isChecked,
+                activeColor: Colors.blue,
+                onChanged: (bool? newValue) {
+                  setState(() {
+                    isChecked = newValue ?? !isChecked;
+                  });
+                })
           ],
         ),
       ),

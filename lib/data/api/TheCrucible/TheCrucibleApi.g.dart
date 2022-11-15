@@ -45,6 +45,30 @@ class _TheCrucibleApi implements TheCrucibleApi {
   }
 
   @override
+  Future<LoggedTokenWrapper> refreshAuthorization(token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(token.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<LoggedTokenWrapper>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'account/token',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LoggedTokenWrapper.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<CrucibleDecksWrapper> getCrucibleDecks(auth) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -66,27 +90,6 @@ class _TheCrucibleApi implements TheCrucibleApi {
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CrucibleDecksWrapper.fromJson(_result.data!);
     return value;
-  }
-
-  @override
-  Future<void> sendToken(token) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    await _dio.fetch<void>(_setStreamType<void>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          'account/token',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/TokenWrapper.dart';
+import 'package:keyforgery/utilities/utils.dart';
 
 import '../data/api/Api.dart';
 import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
+import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/LoggedTokenWrapper.dart';
+import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshTokenWrapper.dart';
 import '../data/storage/Database/DecksDatabase.dart';
 import '../utilities/LogoConverte.dart';
 
@@ -30,6 +34,16 @@ class _SplashScreenState extends State<SplashScreen> {
     HouseWrapper houses = await Api.getAllHouses();
     LogoConverter.init(houses);
     await DecksDatabase.initDatabase();
+    var refreshToken = await SharedPrefs.getRefreshToken();
+    if(refreshToken.id != 0){
+      try { // TODO remove try catch and add proper handling... also figure out how exactly this refresh token stuff works
+        var newToken = await Api.sendRefreshToken(RefreshTokenWrapper(refreshToken));
+        var newList = await Api.getCrucibleDecks(newToken.token);
+        var oldList = await SharedPrefs.getCruciblePrevious();
+        await updateDifferences(oldList.decks, newList.decks);
+        await SharedPrefs.setCruciblePrevious(newList);
+      } catch (e) {}
+    }
     widget.onInitializationComplete();
   }
 

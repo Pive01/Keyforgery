@@ -1,5 +1,6 @@
 import 'package:keyforgery/data/storage/Deck/DeckDao.dart';
 
+import '../../utilities/utils.dart';
 import '../models/DeckModel/Deck/Deck.dart';
 import '../models/Validator/CrucibleLogin.dart';
 import '../models/Wrappers/TheCrucibleWrapper/CrucibleDeck/CrucibleDeck.dart';
@@ -9,8 +10,11 @@ import '../storage/Database/DecksDatabase.dart';
 import 'Api.dart';
 
 class ApiPerformer {
-  static Future<void> overrideCrucibleImports(String username, String password) async {
+  static Future<void> overrideCrucibleImports(String username, String password, bool keepLoggedIn) async {
     TokenWrapper token = await Api.getCrucibleToken(CrucibleLogin(username, password));
+    if(keepLoggedIn){
+      await SharedPrefs.setRefreshToken(token.refreshToken);
+    }
     CrucibleDecksWrapper cDecks = await Api.getCrucibleDecks("Bearer ${token.token}");
     DeckDao deckDao = DecksDatabase.getSyncDB().deckDao;
     for (var element in cDecks.decks) {
@@ -18,8 +22,11 @@ class ApiPerformer {
     }
   }
 
-  static Future<void> addCrucibleImports(String username, String password) async {
+  static Future<void> addCrucibleImports(String username, String password,bool keepLoggedIn) async {
     TokenWrapper token = await Api.getCrucibleToken(CrucibleLogin(username, password));
+    if(keepLoggedIn){
+      await SharedPrefs.setRefreshToken(token.refreshToken);
+    }
     CrucibleDecksWrapper cDecks = await Api.getCrucibleDecks("Bearer ${token.token}");
     _compareDecks(cDecks.decks);
   }

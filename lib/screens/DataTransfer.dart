@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/api/ApiPerformer.dart';
 import 'package:keyforgery/screens/LoginPage.dart';
@@ -27,14 +26,12 @@ class DataTransfer extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.library_add),
                   title: const Text('Import'),
-                  description:
-                      const Text("Import decks and add them to your library"),
+                  description: const Text("Import decks and add them to your library"),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.upload),
                   title: const Text('Upload'),
-                  description:
-                      const Text("Upload decks in your library to DoK "),
+                  description: const Text("Upload decks in your library to DoK "),
                 ),
               ],
             ),
@@ -44,87 +41,17 @@ class DataTransfer extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(MdiIcons.fileReplace),
                   title: const Text('Override Import'),
-                  description:
-                      const Text("Import decks and replace current w/l "),
+                  description: const Text("Import decks and replace current w/l "),
                   onPressed: (BuildContext context) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginPage(
-                                headerText: "TheCrucible",
-                                callback:
-                                    (String username, String password) async {
-                                  Navigator.pop(context);
-                                  dynamic context_to_pop;
-                                  showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        context_to_pop = context;
-                                        return const AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(32.0))),
-                                          title: Text('Getting data'),
-                                          actions: <Widget>[
-                                            Align(
-                                                alignment: Alignment.center,
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ))
-                                          ],
-                                        );
-                                      });
-                                  await ApiPerformer.overrideCrucibleImports(
-                                      username, password);
-                                  Navigator.pop(context_to_pop);
-                                },
-                              )),
-                    );
+                    triggerOnLogin(context, "TheCrucible", ApiPerformer.overrideCrucibleImports);
                   },
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.library_add),
                   title: const Text('Add Import'),
-                  description: const Text(
-                      "Import decks and add imported w/l with current w/l "),
-                  onPressed:  (BuildContext context) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LoginPage(
-                            headerText: "TheCrucible",
-                            callback:
-                                (String username, String password) async {
-                              Navigator.pop(context);
-                              dynamic context_to_pop;
-                              showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    context_to_pop = context;
-                                    return const AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(32.0))),
-                                      title: Text('Getting data'),
-                                      actions: <Widget>[
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child:
-                                              CircularProgressIndicator(),
-                                            ))
-                                      ],
-                                    );
-                                  });
-                              await ApiPerformer.addCrucibleImports(
-                                  username, password);
-                              Navigator.pop(context_to_pop);
-                            },
-                          )),
-                    );
+                  description: const Text("Import decks and add imported w/l with current w/l "),
+                  onPressed: (BuildContext context) {
+                    triggerOnLogin(context, "TheCrucible", ApiPerformer.addCrucibleImports);
                   },
                 ),
               ],
@@ -135,12 +62,39 @@ class DataTransfer extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.library_add),
                   title: const Text('Import'),
-                  description:
-                      const Text("Add MasterVault decks to your library"),
+                  description: const Text("Add MasterVault decks to your library"),
                 ),
               ],
             ),
           ]),
     );
   }
+}
+
+void triggerOnLogin(BuildContext context, String textHeader, Function apiExecute) {
+  Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => LoginPage(
+                headerText: textHeader,
+                callback: (String username, String password, bool isCheked) async {
+                  Navigator.pop(context);
+                  dynamic contextToPop;
+                  showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        contextToPop = context;
+                        return AlertDialog(
+                          actions: <Widget>[
+                            Row(
+                              children: const [Padding(padding: EdgeInsets.only(left: 8,top: 8,bottom: 8,right: 20), child: CircularProgressIndicator()), Text
+                                ("Loading")],
+                            )
+                          ],
+                        );
+                      });
+                  await apiExecute(username, password, isCheked);
+                  Navigator.pop(contextToPop);
+                },
+              )));
 }
