@@ -2,7 +2,8 @@
 
 Flutter app for managing Keyforge decks
 
-This is the Flutter transformation of an old projet made in Java https://github.com/Pive01/Keyforge_management
+This is the Flutter transformation of an old projet made in Java https://github.com/Pive01/Keyforge_managemet
+Once on the playStore you'll see this as an update of the old project since I've kept package-name and similar database structure (meaning that you won't loose the data you previously had)
 
 # Current Features
 - Search deck through it's name
