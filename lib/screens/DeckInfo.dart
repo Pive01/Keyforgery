@@ -5,7 +5,6 @@ import 'package:keyforgery/data/storage/Database/DecksDatabase.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
-import '../data/models/Card/Card/Card.dart';
 import '../utilities/style.dart';
 import '../widgets/DeckDetails/CardsDisplayer.dart';
 import '../widgets/DeckDetails/ModalBottomSheet.dart';
@@ -32,11 +31,15 @@ class _DeckInfoState extends State<DeckInfo> {
   }
 
   Future<void> initAsyncDep() async {
-    cardList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
-    if(cardList == []){
+    List<RetrivedCard> tmpList=  await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
+    if(tmpList.isEmpty){
       await ApiPerformer.getCards(deck);
-      cardList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
+      tmpList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
     }
+
+    setState(() {
+        cardList = tmpList;
+    });
   }
 
   void refreshIsGrey() {
