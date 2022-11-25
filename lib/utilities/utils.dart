@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:keyforgery/data/api/Api.dart';
-import 'package:keyforgery/data/api/ApiPerformer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
@@ -13,7 +11,11 @@ import '../data/storage/Deck/DeckDao.dart';
 
 extension StringExtension on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    return "${this[0].toUpperCase()}${substring(1)}";
+  }
+
+  String makeKfFriendly() {
+    return capitalize().split(' ').join();
   }
 }
 

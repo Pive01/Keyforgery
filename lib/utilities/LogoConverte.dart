@@ -13,7 +13,7 @@ class LogoConverter {
 
   static String getLinkFromName(String houseName) {
     for (final house in _data.data) {
-      if (house.name.split(' ').join() == houseName.capitalize()) {
+      if (house.name.makeKfFriendly() == houseName.makeKfFriendly()) {
         return  house.image ?? untamedLogo;
       }
     }

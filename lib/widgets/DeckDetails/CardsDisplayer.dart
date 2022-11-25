@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keyforgery/utilities/utils.dart';
 import 'package:keyforgery/widgets/DeckDetails/CardList.dart';
 
 import '../../data/models/Card/Card/RetrivedCard.dart';
@@ -38,7 +39,8 @@ class _CardDisplayerState extends State<CardDisplayer> {
           body: Container(
             height: 400,
             color: Colors.blue,
-            child: TabBarView(children: widget.deck.housesAndCards.map((e) => CardList(cardList: widget.cardList.where((element) => element.house==e.house)
+            child: TabBarView(children: widget.deck.housesAndCards.map((e) => CardList(cardList: widget.cardList.where((element) =>
+            element.house.makeKfFriendly()==e.house.makeKfFriendly())
                 .toList())).toList()),
           ),
         ));
