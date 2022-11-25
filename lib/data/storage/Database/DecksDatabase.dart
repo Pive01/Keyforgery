@@ -4,7 +4,7 @@ import 'package:keyforgery/utilities/HouseArrayTypeConverter.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
 
 import '../../models/Card/Card/Card.dart';
-import '../../models/DeckDTO.dart';
+import '../../models/Card/Card/RetrivedCard.dart';
 import '../../models/DeckModel/Deck/Deck.dart';
 import '../Card/CardDao.dart';
 import '../Deck/DeckDao.dart';

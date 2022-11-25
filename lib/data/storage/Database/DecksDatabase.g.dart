@@ -89,9 +89,9 @@ class _$DecksDatabase extends DecksDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `decks` (`id` INTEGER NOT NULL, `keyforgeId` TEXT NOT NULL, `name` TEXT NOT NULL, `expansion` TEXT NOT NULL, `creatureCount` INTEGER NOT NULL, `actionCount` INTEGER NOT NULL, `artifactCount` INTEGER, `expectedAmber` REAL NOT NULL, `amberControl` REAL NOT NULL, `creatureControl` REAL, `artifactControl` REAL, `efficiency` REAL, `effectivePower` INTEGER, `creatureProtection` REAL, `disruption` REAL, `aercScore` REAL, `sasRating` INTEGER NOT NULL, `synergyRating` REAL NOT NULL, `antisynergyRating` REAL NOT NULL, `localWins` INTEGER, `localLosses` INTEGER, `efficiencyBonus` REAL NOT NULL, `totalPower` INTEGER NOT NULL, `rawAmber` INTEGER NOT NULL, `sasPercentile` REAL, `houses` TEXT NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `decks` (`id` INTEGER NOT NULL, `keyforgeId` TEXT NOT NULL, `name` TEXT NOT NULL, `expansion` TEXT NOT NULL, `creatureCount` INTEGER NOT NULL, `actionCount` INTEGER NOT NULL, `artifactCount` INTEGER, `expectedAmber` REAL NOT NULL, `amberControl` REAL NOT NULL, `creatureControl` REAL, `artifactControl` REAL, `efficiency` REAL, `effectivePower` INTEGER, `creatureProtection` REAL, `disruption` REAL, `aercScore` REAL, `sasRating` INTEGER NOT NULL, `synergyRating` REAL NOT NULL, `antisynergyRating` REAL NOT NULL, `localWins` INTEGER, `localLosses` INTEGER, `efficiencyBonus` REAL NOT NULL, `totalPower` INTEGER NOT NULL, `rawAmber` INTEGER NOT NULL, `houses` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `cards` (`id` TEXT NOT NULL, `card_title` TEXT NOT NULL, `house` TEXT NOT NULL, `card_type` TEXT NOT NULL, `front_image` TEXT NOT NULL, `card_text` TEXT NOT NULL, `traits` TEXT NOT NULL, `amber` INTEGER NOT NULL, `power` TEXT NOT NULL, `armor` TEXT NOT NULL, `rarity` TEXT NOT NULL, `flavor_text` TEXT NOT NULL, `card_number` TEXT NOT NULL, `expansion` INTEGER NOT NULL, `is_maverick` INTEGER NOT NULL, `is_anomaly` INTEGER NOT NULL, `is_enhanced` INTEGER NOT NULL, `is_non_deck` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `cards` (`id` TEXT NOT NULL, `card_title` TEXT NOT NULL, `house` TEXT NOT NULL, `card_type` TEXT NOT NULL, `front_image` TEXT NOT NULL, `card_text` TEXT NOT NULL, `amber` INTEGER NOT NULL, `rarity` TEXT NOT NULL, `is_maverick` INTEGER NOT NULL, `is_anomaly` INTEGER NOT NULL, `is_enhanced` INTEGER NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `cards_deck_join` (`cardId` TEXT NOT NULL, `deckId` INTEGER NOT NULL, `count` INTEGER NOT NULL, `is_maverick` INTEGER NOT NULL, `is_legacy` INTEGER NOT NULL, `is_anomaly` INTEGER NOT NULL, `is_enhanced` INTEGER NOT NULL, FOREIGN KEY (`cardId`) REFERENCES `cards` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION, FOREIGN KEY (`deckId`) REFERENCES `decks` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE, PRIMARY KEY (`cardId`, `deckId`))');
 
@@ -151,7 +151,6 @@ class _$DeckDao extends DeckDao {
                   'efficiencyBonus': item.efficiencyBonus,
                   'totalPower': item.totalPower,
                   'rawAmber': item.rawAmber,
-                  'sasPercentile': item.sasPercentile,
                   'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
                 },
             changeListener),
@@ -184,7 +183,6 @@ class _$DeckDao extends DeckDao {
                   'efficiencyBonus': item.efficiencyBonus,
                   'totalPower': item.totalPower,
                   'rawAmber': item.rawAmber,
-                  'sasPercentile': item.sasPercentile,
                   'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
                 },
             changeListener),
@@ -217,7 +215,6 @@ class _$DeckDao extends DeckDao {
                   'efficiencyBonus': item.efficiencyBonus,
                   'totalPower': item.totalPower,
                   'rawAmber': item.rawAmber,
-                  'sasPercentile': item.sasPercentile,
                   'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
                 },
             changeListener);
@@ -263,7 +260,6 @@ class _$DeckDao extends DeckDao {
             row['efficiencyBonus'] as double,
             row['totalPower'] as int,
             row['rawAmber'] as int,
-            row['sasPercentile'] as double?,
             _houseArrayTypeConverter.decode(row['houses'] as String)),
         queryableName: 'decks',
         isView: false);
@@ -298,7 +294,6 @@ class _$DeckDao extends DeckDao {
             row['efficiencyBonus'] as double,
             row['totalPower'] as int,
             row['rawAmber'] as int,
-            row['sasPercentile'] as double?,
             _houseArrayTypeConverter.decode(row['houses'] as String)));
   }
 
@@ -354,17 +349,6 @@ class _$DeckDao extends DeckDao {
   }
 
   @override
-  Future<DeckDTO?> getDeckDTOs(int id) async {
-    await _queryAdapter
-        .queryNoReturn('SELECT * FROM decks WHERE id=?1', arguments: [id]);
-  }
-
-  @override
-  Future<List<DeckDTO>?> getAllDeckDTOs() async {
-    await _queryAdapter.queryNoReturn('SELECT * FROM decks');
-  }
-
-  @override
   Future<void> addDeck(Deck deck) async {
     await _deckInsertionAdapter.insert(deck, OnConflictStrategy.ignore);
   }
@@ -390,7 +374,8 @@ class _$CardDao extends CardDao {
   _$CardDao(
     this.database,
     this.changeListener,
-  ) : _cardInsertionAdapter = InsertionAdapter(
+  )   : _queryAdapter = QueryAdapter(database),
+        _cardInsertionAdapter = InsertionAdapter(
             database,
             'cards',
             (Card item) => <String, Object?>{
@@ -400,25 +385,43 @@ class _$CardDao extends CardDao {
                   'card_type': item.card_type,
                   'front_image': item.front_image,
                   'card_text': item.card_text,
-                  'traits': item.traits,
                   'amber': item.amber,
-                  'power': item.power,
-                  'armor': item.armor,
                   'rarity': item.rarity,
-                  'flavor_text': item.flavor_text,
-                  'card_number': item.card_number,
-                  'expansion': item.expansion,
                   'is_maverick': item.is_maverick ? 1 : 0,
                   'is_anomaly': item.is_anomaly ? 1 : 0,
-                  'is_enhanced': item.is_enhanced ? 1 : 0,
-                  'is_non_deck': item.is_non_deck ? 1 : 0
+                  'is_enhanced': item.is_enhanced ? 1 : 0
                 });
 
   final sqflite.DatabaseExecutor database;
 
   final StreamController<String> changeListener;
 
+  final QueryAdapter _queryAdapter;
+
   final InsertionAdapter<Card> _cardInsertionAdapter;
+
+  @override
+  Future<List<RetrivedCard>> getCardsFromDeckId(int deckId) async {
+    return _queryAdapter.queryList(
+        'select c.id, c.card_title,c.house,c.card_type, c.front_image,c.card_text,c.amber,c.rarity,cdj.count,cdj.is_anomaly,cdj.is_enhanced,cdj.is_legacy,cdj'
+            '.is_maverick from cards as c INNER JOIN cards_deck_join as cdj on c.id=cdj.cardId where c.id IN (Select cardId from cards_deck_join where deckId =?1)',
+        arguments: [deckId],
+        mapper: (Map<String, Object?> row) => RetrivedCard(
+          row['id'] as String,
+          row['card_title'] as String,
+          row['house'] as String,
+          row['card_type'] as String,
+          row['front_image'] as String,
+          row['card_text'] as String,
+          row['amber'] as int,
+          row['rarity'] as String,
+          (row['is_maverick'] as int) == 1,
+          (row['is_anomaly'] as int) == 1,
+          (row['is_enhanced'] as int) == 1,
+          row['count'] as int,
+          (row['is_legacy'] as int) == 1,
+        ));
+  }
 
   @override
   Future<void> bulkAdd(List<Card> cardsDeckRefCollection) async {
@@ -459,7 +462,7 @@ class _$DeckWithCardsDao extends DeckWithCardsDao {
   @override
   Future<void> bulkAdd(List<CardsDeckRef> cardsDeckRefCollection) async {
     await _cardsDeckRefInsertionAdapter.insertList(
-        cardsDeckRefCollection, OnConflictStrategy.ignore);
+        cardsDeckRefCollection, OnConflictStrategy.replace);
   }
 }
 

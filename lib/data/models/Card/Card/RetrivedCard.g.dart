@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Card.dart';
+part of 'RetrivedCard.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Card _$CardFromJson(Map<String, dynamic> json) => Card(
+RetrivedCard _$RetrivedCardFromJson(Map<String, dynamic> json) => RetrivedCard(
       json['id'] as String,
       json['card_title'] as String,
       json['house'] as String,
@@ -18,9 +18,12 @@ Card _$CardFromJson(Map<String, dynamic> json) => Card(
       json['is_maverick'] as bool,
       json['is_anomaly'] as bool,
       json['is_enhanced'] as bool,
+      json['count'] as int,
+      json['is_legacy'] as bool,
     );
 
-Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
+Map<String, dynamic> _$RetrivedCardToJson(RetrivedCard instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'card_title': instance.card_title,
       'house': instance.house,
@@ -32,4 +35,6 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'is_maverick': instance.is_maverick,
       'is_anomaly': instance.is_anomaly,
       'is_enhanced': instance.is_enhanced,
+      'is_legacy': instance.is_legacy,
+      'count': instance.count,
     };

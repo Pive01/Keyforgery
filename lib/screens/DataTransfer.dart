@@ -27,6 +27,9 @@ class DataTransfer extends StatelessWidget {
                   leading: const Icon(Icons.library_add),
                   title: const Text('Import'),
                   description: const Text("Import decks and add them to your library"),
+                  onPressed: (BuildContext context) {
+                    triggerOnLogin(context, "Decks Of Keyforge", ApiPerformer.importDokDecks,false);
+                  },
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.upload),
@@ -43,7 +46,7 @@ class DataTransfer extends StatelessWidget {
                   title: const Text('Override Import'),
                   description: const Text("Import decks and replace current w/l "),
                   onPressed: (BuildContext context) {
-                    triggerOnLogin(context, "TheCrucible", ApiPerformer.overrideCrucibleImports);
+                    triggerOnLogin(context, "TheCrucible", ApiPerformer.overrideCrucibleImports,true);
                   },
                 ),
                 SettingsTile.navigation(
@@ -51,7 +54,7 @@ class DataTransfer extends StatelessWidget {
                   title: const Text('Add Import'),
                   description: const Text("Import decks and add imported w/l with current w/l "),
                   onPressed: (BuildContext context) {
-                    triggerOnLogin(context, "TheCrucible", ApiPerformer.addCrucibleImports);
+                    triggerOnLogin(context, "TheCrucible", ApiPerformer.addCrucibleImports,true);
                   },
                 ),
               ],
@@ -71,13 +74,13 @@ class DataTransfer extends StatelessWidget {
   }
 }
 
-void triggerOnLogin(BuildContext context, String textHeader, Function apiExecute) {
+void triggerOnLogin(BuildContext context, String textHeader, Function apiExecute, bool showCheck) {
   Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => LoginPage(
                 headerText: textHeader,
-                callback: (String username, String password, bool isCheked) async {
+                callback: (String username, String password, bool isChecked) async {
                   Navigator.pop(context);
                   dynamic contextToPop;
                   showDialog<String>(
@@ -93,7 +96,11 @@ void triggerOnLogin(BuildContext context, String textHeader, Function apiExecute
                           ],
                         );
                       });
-                  await apiExecute(username, password, isCheked);
+                  if(showCheck) {
+                    await apiExecute(username, password, isChecked);
+                  } else {
+                    await apiExecute(username, password);
+                  }
                   Navigator.pop(contextToPop);
                 },
               )));

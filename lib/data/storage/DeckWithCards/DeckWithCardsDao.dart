@@ -8,7 +8,6 @@ abstract class DeckWithCardsDao {
   @Insert(onConflict: OnConflictStrategy.ignore)
   Future<void> add(CardsDeckRef cardsDeckRef);
 
-  @Insert(onConflict: OnConflictStrategy.ignore)
+  @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> bulkAdd(List<CardsDeckRef> cardsDeckRefCollection);
-
 }

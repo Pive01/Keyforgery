@@ -5,7 +5,7 @@ import '../data/models/DeckModel/Deck/Deck.dart';
 import 'DeckDisplayer/DeckDisplayer.dart';
 
 class DeckList extends StatefulWidget {
-  const DeckList({super.key, required this.deckList, this.callback,this.callbackLong});
+  const DeckList({super.key, required this.deckList, this.callback, this.callbackLong});
 
   final List<Deck> deckList;
   final callback;

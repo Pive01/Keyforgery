@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../utilities/style.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.headerText, required this.callback}) : super(key: key);
+  const LoginPage({Key? key, required this.headerText, required this.callback, this.showCheckBox = false}) : super(key: key);
   final String headerText;
   final Function callback;
+  final bool showCheckBox;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -39,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0,bottom: 30),
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 30),
                     child: Text(
                       widget.headerText,
                       style: textFontBig,
@@ -62,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      widget.callback(usernameController.text, passwordController.text,isChecked);
+                      widget.callback(usernameController.text, passwordController.text, isChecked);
                     },
                     style:
                         ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue), minimumSize: MaterialStateProperty.all(const Size.fromHeight(0))),
@@ -74,18 +75,20 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-            CheckboxListTile(
-                contentPadding: const EdgeInsets.only(left: 24,right: 24,top: 5),
-                controlAffinity: ListTileControlAffinity.leading,
-                title: const Text("Keep me logged"),
-                subtitle: const Text("Keyforgery will add your new w/l automatically"),
-                value: isChecked,
-                activeColor: Colors.blue,
-                onChanged: (bool? newValue) {
-                  setState(() {
-                    isChecked = newValue ?? !isChecked;
-                  });
-                })
+            widget.showCheckBox
+                ? CheckboxListTile(
+                    contentPadding: const EdgeInsets.only(left: 24, right: 24, top: 5),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: const Text("Keep me logged"),
+                    subtitle: const Text("Keyforgery will add your new w/l automatically"),
+                    value: isChecked,
+                    activeColor: Colors.blue,
+                    onChanged: (bool? newValue) {
+                      setState(() {
+                        isChecked = newValue ?? !isChecked;
+                      });
+                    })
+                : Container()
           ],
         ),
       ),

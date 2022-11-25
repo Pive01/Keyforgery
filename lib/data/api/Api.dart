@@ -4,10 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:keyforgery/data/api/TheCrucible/TheCrucibleApi.dart';
 import 'package:keyforgery/data/models/Validator/CrucibleLogin.dart';
 import 'package:keyforgery/data/models/Validator/UserValidator.dart';
-import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshToken.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/DeckModel/Deck/Deck.dart';
+import '../models/UserInfo.dart';
 import '../models/Wrappers/DokWrappers/DokFilterWrappers/FilterWrapper/FilterWrapper.dart';
 import '../models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
 import '../models/Wrappers/DokWrappers/WithSynergiesWrapper.dart';
@@ -53,6 +53,10 @@ class Api {
 
   static Future<HttpResponse<void>> getAuthorization(UserValidator usrV) {
     return dokClient.getAuthorization(usrV);
+  }
+
+  static Future<UserInfo> getUsername(String authToken) {
+    return dokClient.getUserName(authToken);
   }
 
   static Future<TokenWrapper> getCrucibleToken(CrucibleLogin usrV) {

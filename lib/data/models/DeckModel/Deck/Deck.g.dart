@@ -31,7 +31,6 @@ Deck _$DeckFromJson(Map<String, dynamic> json) => Deck(
       (json['efficiencyBonus'] as num).toDouble(),
       json['totalPower'] as int,
       json['rawAmber'] as int,
-      (json['sasPercentile'] as num?)?.toDouble(),
       (json['housesAndCards'] as List<dynamic>)
           .map((e) => HousesAndCards.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -62,6 +61,5 @@ Map<String, dynamic> _$DeckToJson(Deck instance) => <String, dynamic>{
       'efficiencyBonus': instance.efficiencyBonus,
       'totalPower': instance.totalPower,
       'rawAmber': instance.rawAmber,
-      'sasPercentile': instance.sasPercentile,
       'housesAndCards': instance.housesAndCards,
     };

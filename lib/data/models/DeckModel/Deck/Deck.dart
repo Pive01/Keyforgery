@@ -34,7 +34,6 @@ class Deck {
   double efficiencyBonus;
   int totalPower;
   int rawAmber;
-  double? sasPercentile;
   @ColumnInfo(name: "houses")
   List<HousesAndCards> housesAndCards;
 
@@ -64,7 +63,6 @@ class Deck {
       this.efficiencyBonus,
       this.totalPower,
       this.rawAmber,
-      this.sasPercentile,
       this.housesAndCards);
 
   factory Deck.fromJson(Map<String, dynamic> json) => _$DeckFromJson(json);
