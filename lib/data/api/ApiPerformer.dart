@@ -80,7 +80,6 @@ class ApiPerformer {
 
   static Future<void> getCards(Deck deck) async {
     MVCardsWrapper wrapper = await Api.getCards(deck.keyforgeId);
-    print(wrapper);
     List<Card> shortedCardList = wrapper.linked.cards;
     List<String> fullCardList = wrapper.data.links.cards;
     shortedCardList.removeWhere((element) => element.id == "37377d67-2916-4d45-b193-bea6ecd853e3");//remove tide card

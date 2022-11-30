@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keyforgery/utilities/LogoConverte.dart';
+import 'package:keyforgery/utilities/LogoConverter.dart';
 import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -37,7 +37,7 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
 
   late bool isGrey;
   late double _percentage;
-
+  final double size = 35;
   @override
   Widget build(BuildContext context) {
     refreshIsIndicatorStatus();
@@ -104,16 +104,16 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                         children: [
                           HouseLogoDisplay(
                               link: LogoConverter.getLinkFromName(
-                                  widget.deck.housesAndCards[0].house)),
+                                  widget.deck.housesAndCards[0].house), size: size,),
                           Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: HouseLogoDisplay(
                                   link: LogoConverter.getLinkFromName(
-                                      widget.deck.housesAndCards[1].house))),
+                                      widget.deck.housesAndCards[1].house), size: size)),
                           HouseLogoDisplay(
                               link: LogoConverter.getLinkFromName(
-                                  widget.deck.housesAndCards[2].house)),
+                                  widget.deck.housesAndCards[2].house), size: size),
                         ],
                       )),
                   Expanded(

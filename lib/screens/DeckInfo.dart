@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:keyforgery/data/api/ApiPerformer.dart';
-import 'package:keyforgery/data/models/Card/Card/RetrivedCard.dart';
+import 'package:keyforgery/data/models/Card/Card/RetrievedCard.dart';
 import 'package:keyforgery/data/storage/Database/DecksDatabase.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -31,14 +31,20 @@ class _DeckInfoState extends State<DeckInfo> {
   }
 
   Future<void> initAsyncDep() async {
-    List<RetrivedCard> tmpList=  await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
-    if(tmpList.isEmpty){
+    List<RetrievedCard> tmpList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
+    if (tmpList.isEmpty) {
       await ApiPerformer.getCards(deck);
       tmpList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
     }
 
+    List<RetrievedCard> expandedList = [];
+    for (var cardRef in tmpList) {
+      for (int i = 0; i < cardRef.count; i++) {
+        expandedList.add(cardRef);
+      }
+    }
     setState(() {
-        cardList = tmpList;
+      cardList = expandedList;
     });
   }
 
@@ -50,7 +56,7 @@ class _DeckInfoState extends State<DeckInfo> {
   bool isGrey = true;
   double _percentage = 0;
   late Deck deck;
-  List<RetrivedCard> cardList = [];
+  List<RetrievedCard> cardList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -146,10 +152,8 @@ class _DeckInfoState extends State<DeckInfo> {
             ),
             Expanded(
               flex: 10,
-              child: Container(
-                child:CardDisplayer(deck: deck,cardList: cardList),
-              ),
-            )
+              child: CardDisplayer(deck: deck, cardList: cardList),
+            ),
           ],
         ),
       ),

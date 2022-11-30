@@ -8,7 +8,7 @@ import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
 import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/LoggedTokenWrapper.dart';
 import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshTokenWrapper.dart';
 import '../data/storage/Database/DecksDatabase.dart';
-import '../utilities/LogoConverte.dart';
+import '../utilities/LogoConverter.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onInitializationComplete;

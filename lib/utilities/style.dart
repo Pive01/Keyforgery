@@ -6,6 +6,13 @@ const textFontBold = TextStyle(
   color: Colors.white,
   fontSize: 23,
 );
+
+const textFontCard = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+  fontSize: 20,
+);
+
 const textFontBig = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.white,

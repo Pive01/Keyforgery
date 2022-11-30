@@ -401,13 +401,13 @@ class _$CardDao extends CardDao {
   final InsertionAdapter<Card> _cardInsertionAdapter;
 
   @override
-  Future<List<RetrivedCard>> getCardsFromDeckId(int deckId) async {
+  Future<List<RetrievedCard>> getCardsFromDeckId(int deckId) async {
     return _queryAdapter.queryList(
         'select c.id, c.card_title,c.house,c.card_type, c.front_image,c.card_text,c.amber,c.rarity,cdj.count,cdj.is_anomaly,cdj.is_enhanced,cdj.is_legacy,cdj'
             '.is_maverick from cards as c INNER JOIN cards_deck_join as cdj on c.id=cdj.cardId where c.id IN (Select cardId from cards_deck_join where deckId'
-            ' =?1) Group by id',
+            ' =?1) Group by c.id Order by c.house, c.card_title',
         arguments: [deckId],
-        mapper: (Map<String, Object?> row) => RetrivedCard(
+        mapper: (Map<String, Object?> row) => RetrievedCard(
           row['id'] as String,
           row['card_title'] as String,
           row['house'] as String,

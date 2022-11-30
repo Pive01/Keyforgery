@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'RetrivedCard.dart';
+part of 'RetrievedCard.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RetrivedCard _$RetrivedCardFromJson(Map<String, dynamic> json) => RetrivedCard(
+RetrievedCard _$RetrievedCardFromJson(Map<String, dynamic> json) =>
+    RetrievedCard(
       json['id'] as String,
       json['card_title'] as String,
       json['house'] as String,
@@ -22,7 +23,7 @@ RetrivedCard _$RetrivedCardFromJson(Map<String, dynamic> json) => RetrivedCard(
       json['is_legacy'] as bool,
     );
 
-Map<String, dynamic> _$RetrivedCardToJson(RetrivedCard instance) =>
+Map<String, dynamic> _$RetrievedCardToJson(RetrievedCard instance) =>
     <String, dynamic>{
       'id': instance.id,
       'card_title': instance.card_title,
