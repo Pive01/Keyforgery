@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/models/Card/Card/RetrievedCard.dart';
 import 'package:keyforgery/utilities/utils.dart';
@@ -53,22 +54,25 @@ class _CardListState extends State<CardList> {
 Widget setupAlertDialogContainer(List<RetrievedCard> cardList, String house, int position) {
   int initialPosition = cardList.indexWhere((element) => element.house == house) ~/ 12 * 12 + position;
   return SizedBox(
-    height: 400.0,
-    width: 500.0,
-    child: ScrollablePositionedList.builder(
-      itemCount: cardList.length,
-      initialScrollIndex: initialPosition,
-      shrinkWrap: true,
-      initialAlignment: -0.03,
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8),
-        child: CachedNetworkImage(
-          imageUrl: cardList.elementAt(index).front_image,
-          fit: BoxFit.fitWidth,
-          placeholder: (contest,url) =>  Image.asset('assets/images/EmptyCard.png'),
-        ),
-      ),
+    height: 300.0,
+    width: 300.0,
+    child: CarouselSlider(
+      options: CarouselOptions(height: 400.0, initialPage: initialPosition, enableInfiniteScroll: false),
+      items: cardList.map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: CachedNetworkImage(
+                  imageUrl: i.front_image,
+                  alignment: Alignment.topCenter,
+                  fit: BoxFit.fitWidth,
+                  placeholder: (contest, url) => Image.asset('assets/images/EmptyCard.png'),
+                ));
+          },
+        );
+      }).toList(),
     ),
   );
 }
