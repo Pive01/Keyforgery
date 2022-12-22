@@ -19,6 +19,12 @@ class CardsDeckRef {
   int deckId;
   int count;
   bool is_maverick;
+
+  @override
+  String toString() {
+    return 'CardsDeckRef{cardId: $cardId, deckId: $deckId, count: $count, is_maverick: $is_maverick, is_legacy: $is_legacy, is_anomaly: $is_anomaly, is_enhanced: $is_enhanced}';
+  }
+
   bool is_legacy;
   bool is_anomaly;
   bool is_enhanced;

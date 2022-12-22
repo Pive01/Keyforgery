@@ -52,12 +52,12 @@ class _CardListState extends State<CardList> {
 }
 
 Widget setupAlertDialogContainer(List<RetrievedCard> cardList, String house, int position) {
-  int initialPosition = cardList.indexWhere((element) => element.house == house) ~/ 12 * 12 + position;
+  int initialPosition = cardList.indexWhere((element) => element.house.makeKfFriendly() == house.makeKfFriendly()) ~/ 12 * 12 + position;
   return SizedBox(
-    height: 300.0,
+    height: 400.0,
     width: 300.0,
     child: CarouselSlider(
-      options: CarouselOptions(height: 400.0, initialPage: initialPosition, enableInfiniteScroll: false),
+      options: CarouselOptions(height: 400.0, initialPage: initialPosition, enableInfiniteScroll: false, enlargeCenterPage: true),
       items: cardList.map((i) {
         return Builder(
           builder: (BuildContext context) {
