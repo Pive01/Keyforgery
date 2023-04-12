@@ -17,7 +17,7 @@ class RetrievedCard extends Card {
 
   @override
   String toString() {
-    return '${super.toString()} is_legacy: $is_legacy, count: $count}';
+    return '${super.card_title}: $count';
   }
 
 
