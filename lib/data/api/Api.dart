@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:keyforgery/data/api/GoogleSheetApi/GoogleSheetApi.dart';
 import 'package:keyforgery/data/api/TheCrucible/TheCrucibleApi.dart';
 import 'package:keyforgery/data/models/Validator/CrucibleLogin.dart';
 import 'package:keyforgery/data/models/Validator/UserValidator.dart';
@@ -11,6 +10,7 @@ import '../models/UserInfo.dart';
 import '../models/Wrappers/DokWrappers/DokFilterWrappers/FilterWrapper/FilterWrapper.dart';
 import '../models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
 import '../models/Wrappers/DokWrappers/WithSynergiesWrapper.dart';
+import '../models/Wrappers/ExpansionWrapper/ExpansionWrapper.dart';
 import '../models/Wrappers/HouseWrapper/HouseWrapper.dart';
 import '../models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
 import '../models/Wrappers/TheCrucibleWrapper/CrucibleDecksWrapper/CrucibleDecksWrapper.dart';
@@ -26,6 +26,7 @@ class Api {
       BaseOptions(contentType: "application/json", headers: {'Timezone': 60})));
   static final masterVaultClient = MasterVaultApi(Dio());
   static final theCrucibleClient = TheCrucibleApi(Dio());
+  static final googleSheetClient = GoogleSheetApi(Dio());
 
   static Future<List<Deck>> getDecksByNamePreview(String name) {
     return dokClient.getDecksByNamePreview(name);
@@ -69,6 +70,10 @@ class Api {
 
   static Future<LoggedTokenWrapper> sendRefreshToken(RefreshTokenWrapper token) {
     return theCrucibleClient.refreshAuthorization(token);
+  }
+
+  static Future<ExpansionWrapper> getAllExpansions(){
+    return googleSheetClient.getAllExpansions();
   }
 
 }

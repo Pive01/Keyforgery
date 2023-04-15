@@ -12,15 +12,19 @@ class HouseLogoDisplay extends StatefulWidget {
 }
 
 class _HouseLogoDisplayState extends State<HouseLogoDisplay> {
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(10000.0),
-        child: CachedNetworkImage(
-          width: widget.size,
-          height: widget.size,
-          imageUrl: widget.link,
-          placeholder: (context, url) => const CircularProgressIndicator(),
-        ));
+    return Padding(
+      padding: const EdgeInsets.only(right: 7.0),
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(10000.0),
+          child: CachedNetworkImage(
+            width: widget.size,
+            height: widget.size,
+            imageUrl: widget.link,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+          )),
+    );
   }
 }

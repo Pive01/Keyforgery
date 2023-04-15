@@ -32,13 +32,10 @@ class ApiPerformer {
 
   static Future<void> addCrucibleImports(String username, String password, bool keepLoggedIn) async {
     TokenWrapper token = await Api.getCrucibleToken(CrucibleLogin(username, password));
-    print('1');
     if (keepLoggedIn) {
       await SharedPrefs.setRefreshToken(token.refreshToken);
     }
-    print('2');
     CrucibleDecksWrapper cDecks = await Api.getCrucibleDecks("Bearer ${token.token}");
-    print('3');
     _compareDecks(cDecks.decks);
   }
 
@@ -63,7 +60,6 @@ class ApiPerformer {
 
   static Future<void> _insertDeckFromCrucibleToDb(DeckDao deckDao, CrucibleDeck cd) async {
     Deck deck = (await Api.getDeckById(cd.uuid)).deck;
-    print(deck.name);
     deck.localWins = int.parse(cd.wins);
     deck.localLosses = int.parse(cd.losses);
     deckDao.addDeck(deck);
@@ -89,6 +85,5 @@ class ApiPerformer {
         .map((e) => CardsDeckRef(e.id, deck.id, fullCardList.map((cardId) => cardId == e.id ? 1 : 0).reduce((value, element) => value + element), e.is_maverick,
             wrapper.data.set_era_cards.Legacy.any((element) => element == e.id), e.is_anomaly, e.is_enhanced))
         .toList());
-    print('Added');
   }
 }

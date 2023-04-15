@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keyforgery/utilities/LogoConverter.dart';
+import 'package:keyforgery/utilities/DataMantainer.dart';
 import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -8,7 +8,11 @@ import '../../utilities/style.dart';
 import '../../utilities/utils.dart';
 
 class DeckDisplayer extends StatefulWidget {
-  const DeckDisplayer({super.key, required this.deck, required this.callBack,required this.callBackLong });
+  const DeckDisplayer(
+      {super.key,
+      required this.deck,
+      required this.callBack,
+      required this.callBackLong});
 
   final Deck deck;
   final Function callBack;
@@ -38,6 +42,7 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
   late bool isGrey;
   late double _percentage;
   final double size = 35;
+
   @override
   Widget build(BuildContext context) {
     refreshIsIndicatorStatus();
@@ -45,7 +50,7 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
       onTap: () {
         widget.callBack(widget.deck);
       },
-      onLongPress: (){
+      onLongPress: () {
         widget.callBackLong(widget.deck);
       },
       child: SizedBox(
@@ -103,21 +108,25 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                       child: Column(
                         children: [
                           HouseLogoDisplay(
-                              link: LogoConverter.getLinkFromName(
-                                  widget.deck.housesAndCards[0].house), size: size,),
+                            link: LogoConverter.getLinkFromName(
+                                widget.deck.housesAndCards[0].house),
+                            size: size,
+                          ),
                           Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: HouseLogoDisplay(
                                   link: LogoConverter.getLinkFromName(
-                                      widget.deck.housesAndCards[1].house), size: size)),
+                                      widget.deck.housesAndCards[1].house),
+                                  size: size)),
                           HouseLogoDisplay(
                               link: LogoConverter.getLinkFromName(
-                                  widget.deck.housesAndCards[2].house), size: size),
+                                  widget.deck.housesAndCards[2].house),
+                              size: size),
                         ],
                       )),
                   Expanded(
-                      flex: 14,
+                      flex: 16,
                       child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,34 +138,39 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                               overflow: TextOverflow.ellipsis,
                               style: textFontLow,
                             ),
-                            Column(children: [
-                              Text(
-                                widget.deck.sasRating.toString(),
-                                textAlign: TextAlign.right,
-                                style: textFontBold,
-                              ),
-                              const Text(
-                                'SAS',
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis,
-                                style: textFontLow,
-                              )
-                            ]),
-                            Column(children: [
-                              Text(
-                                widget.deck.rawAmber.toString(),
-                                textAlign: TextAlign.right,
-                                style: textFontBold,
-                              ),
-                              const Text(
-                                'Æmber',
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis,
-                                style: textFontLow,
-                              )
-                            ])
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.deck.sasRating.toString(),
+                                  textAlign: TextAlign.right,
+                                  style: textFontBold,
+                                ),
+                                const Text(
+                                  'SAS',
+                                  textAlign: TextAlign.right,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textFontLow,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.deck.rawAmber.toString(),
+                                  textAlign: TextAlign.right,
+                                  style: textFontBold,
+                                ),
+                                const Text(
+                                  'Æmber',
+                                  textAlign: TextAlign.right,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: textFontLow,
+                                )
+                              ],
+                            )
                           ])),
-                  Expanded(flex: 2, child: Container()),
                 ],
               )),
         ),

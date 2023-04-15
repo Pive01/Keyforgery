@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:keyforgery/data/api/Api.dart';
 import 'package:keyforgery/data/storage/Database/DecksDatabase.dart';
 import 'package:keyforgery/widgets/DeckList.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
 import '../data/models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
-import 'Home.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);

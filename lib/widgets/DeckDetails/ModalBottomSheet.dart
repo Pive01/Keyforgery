@@ -9,6 +9,8 @@ void showDeckBottomSheet(BuildContext context,Function onPlusWin, Function onMin
         borderRadius: BorderRadius.circular(10.0),
       ),
       context: context,
+      enableDrag: true,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return DraggableScrollableSheet(
             snap: true,

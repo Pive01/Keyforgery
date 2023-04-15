@@ -4,7 +4,7 @@ import 'package:keyforgery/widgets/DeckDetails/CardList.dart';
 
 import '../../data/models/Card/Card/RetrievedCard.dart';
 import '../../data/models/DeckModel/Deck/Deck.dart';
-import '../../utilities/LogoConverter.dart';
+import '../../utilities/DataMantainer.dart';
 import '../DeckDisplayer/HouseLogoDisplay.dart';
 
 class CardDisplayer extends StatefulWidget {

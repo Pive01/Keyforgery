@@ -36,7 +36,6 @@ class _DeckInfoState extends State<DeckInfo> {
       await ApiPerformer.getCards(deck);
       tmpList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
     }
-
     List<RetrievedCard> expandedList = [];
     for (var cardRef in tmpList) {
       for (int i = 0; i < cardRef.count; i++) {

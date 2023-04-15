@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/TokenWrapper.dart';
+import 'package:keyforgery/data/models/Wrappers/ExpansionWrapper/ExpansionWrapper.dart';
 import 'package:keyforgery/utilities/utils.dart';
 
 import '../data/api/Api.dart';
 import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
-import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/LoggedTokenWrapper.dart';
 import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshTokenWrapper.dart';
 import '../data/storage/Database/DecksDatabase.dart';
-import '../utilities/LogoConverter.dart';
+import '../utilities/DataMantainer.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onInitializationComplete;
@@ -31,8 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeAsyncDependencies() async {
-    HouseWrapper houses = await Api.getAllHouses();
-    LogoConverter.init(houses);
+    Future<HouseWrapper> houses = Api.getAllHouses();
+    Future<ExpansionWrapper> expansions = Api.getAllExpansions();
+    LogoConverter.init(await houses, await expansions);
     await DecksDatabase.initDatabase();
     var refreshToken = await SharedPrefs.getRefreshToken();
     if(refreshToken.id != 0){

@@ -59,16 +59,6 @@ class DataTransfer extends StatelessWidget {
                 ),
               ],
             ),
-            SettingsSection(
-              title: const Text("MasterVault"),
-              tiles: <SettingsTile>[
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.library_add),
-                  title: const Text('Import'),
-                  description: const Text("Add MasterVault decks to your library"),
-                ),
-              ],
-            ),
           ]),
     );
   }

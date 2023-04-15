@@ -57,7 +57,7 @@ class SharedPrefs {
   static const String _theCrucibleRefresh = "theCrucibleRefresh";
   static const String _theCruciblePrevious = "theCruciblePrevious";
   static const String _defaultRefreshToken = '{"id":0,"username":"","token":""}';
-
+  static List<String> houses = [];
   static Future<void> setRefreshToken(RefreshToken token) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(_theCrucibleRefresh, json.encode(token));
@@ -77,4 +77,5 @@ class SharedPrefs {
     final prefs = await SharedPreferences.getInstance();
     return CrucibleDecksWrapper.fromJson(json.decode(prefs.getString(_theCruciblePrevious)!));
   }
+
 }

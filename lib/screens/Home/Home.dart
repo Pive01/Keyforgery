@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart' hide Card;
-import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshToken.dart';
 import 'package:keyforgery/screens/DeckInfo.dart';
-import 'package:keyforgery/utilities/utils.dart';
 
-import '../data/api/Api.dart';
-import '../data/models/CardsDeckRef.dart';
-import '../data/models/DeckModel/Deck/Deck.dart';
-import '../data/models/Card/Card/Card.dart';
-import '../data/models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
-import '../data/storage/Database/DecksDatabase.dart';
-import '../utilities/style.dart';
-import '../widgets/DeckList.dart';
+import '../../data/api/Api.dart';
+import '../../data/models/CardsDeckRef.dart';
+import '../../data/models/DeckModel/Deck/Deck.dart';
+import '../../data/models/Card/Card/Card.dart';
+import '../../data/models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
+import '../../data/storage/Database/DecksDatabase.dart';
+import '../../widgets/DeckList.dart';
+import 'FilterWidget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -26,9 +24,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent.withOpacity(0),
-        elevation: 0,
-        title: Text('KEYFORGERY', style: Theme.of(context).brightness == Brightness.dark ? textFontBold : textFontBoldDark),
+        actions: [
+          IconButton(onPressed: () => createFilterDialog(context), icon: const Icon(Icons.filter_list_outlined))
+        ],
       ),
       floatingActionButton: FloatingActionButton(onPressed: () => testBtn()),
       body: StreamBuilder<List<Deck>>(

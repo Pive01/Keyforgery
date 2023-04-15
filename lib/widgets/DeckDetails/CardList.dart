@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/models/Card/Card/RetrievedCard.dart';
 import 'package:keyforgery/utilities/utils.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../CardInListDisplayer.dart';
 
@@ -35,7 +34,8 @@ class _CardListState extends State<CardList> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             content: setupAlertDialogContainer(widget.cardList, widget.house, position),
-                            backgroundColor: Colors.redAccent.withOpacity(0),
+                            backgroundColor: Colors.transparent,
+                            surfaceTintColor: Colors.transparent,
                           );
                         });
                   });
