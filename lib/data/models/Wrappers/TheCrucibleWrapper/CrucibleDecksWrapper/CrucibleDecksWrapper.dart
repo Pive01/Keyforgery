@@ -4,7 +4,7 @@ import 'package:keyforgery/data/models/Wrappers/TheCrucibleWrapper/CrucibleDeck/
 part 'CrucibleDecksWrapper.g.dart';
 
 @JsonSerializable()
-class CrucibleDecksWrapper{
+class CrucibleDecksWrapper {
   bool success;
   List<CrucibleDeck> decks;
 
@@ -13,8 +13,9 @@ class CrucibleDecksWrapper{
     return 'CrucibleDecksWrapper{success: $success, decks: $decks}';
   }
 
-  CrucibleDecksWrapper(this.decks,this.success);
+  CrucibleDecksWrapper(this.decks, this.success);
 
-  factory CrucibleDecksWrapper.fromJson(Map<String, dynamic> json) => _$CrucibleDecksWrapperFromJson(json);
+  factory CrucibleDecksWrapper.fromJson(Map<String, dynamic> json) =>
+      _$CrucibleDecksWrapperFromJson(json);
   Map<String, dynamic> toJson() => _$CrucibleDecksWrapperToJson(this);
 }

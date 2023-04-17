@@ -31,10 +31,14 @@ class _DeckInfoState extends State<DeckInfo> {
   }
 
   Future<void> initAsyncDep() async {
-    List<RetrievedCard> tmpList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
+    List<RetrievedCard> tmpList = await DecksDatabase.getSyncDB()
+        .cardDao
+        .getCardsFromDeckId(widget.deck.id);
     if (tmpList.isEmpty) {
       await ApiPerformer.getCards(deck);
-      tmpList = await DecksDatabase.getSyncDB().cardDao.getCardsFromDeckId(widget.deck.id);
+      tmpList = await DecksDatabase.getSyncDB()
+          .cardDao
+          .getCardsFromDeckId(widget.deck.id);
     }
     List<RetrievedCard> expandedList = [];
     for (var cardRef in tmpList) {
@@ -48,8 +52,12 @@ class _DeckInfoState extends State<DeckInfo> {
   }
 
   void refreshIsGrey() {
-    isGrey = !(deck.localLosses != null && deck.localLosses! > 0 || deck.localWins != null && deck.localWins! > 0);
-    _percentage = isGrey ? 0 : (deck.localWins ?? 0) / ((deck.localWins ?? 0) + (deck.localLosses ?? 0));
+    isGrey = !(deck.localLosses != null && deck.localLosses! > 0 ||
+        deck.localWins != null && deck.localWins! > 0);
+    _percentage = isGrey
+        ? 0
+        : (deck.localWins ?? 0) /
+            ((deck.localWins ?? 0) + (deck.localLosses ?? 0));
   }
 
   bool isGrey = true;
@@ -131,7 +139,8 @@ class _DeckInfoState extends State<DeckInfo> {
                           animateFromLastPercent: true,
                           barRadius: const Radius.circular(100),
                           percent: _percentage,
-                          backgroundColor: isGrey ? Colors.grey : Colors.redAccent,
+                          backgroundColor:
+                              isGrey ? Colors.grey : Colors.redAccent,
                           progressColor: isGrey ? Colors.grey : Colors.green,
                         ),
                       ),

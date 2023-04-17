@@ -21,6 +21,7 @@ class _ExpansionLogoDisplayState extends State<ExpansionLogoDisplay> {
           borderRadius: BorderRadius.circular(10000.0),
           child: SvgPicture.network(
             widget.link,
+            color: Colors.white,
             width: widget.size,
             height: widget.size,
             placeholderBuilder: (BuildContext context) => SizedBox(

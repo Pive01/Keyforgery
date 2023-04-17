@@ -108,7 +108,7 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                       child: Column(
                         children: [
                           HouseLogoDisplay(
-                            link: LogoConverter.getLinkFromName(
+                            link: DataMantainer.getLinkFromName(
                                 widget.deck.housesAndCards[0].house),
                             size: size,
                           ),
@@ -116,11 +116,11 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: HouseLogoDisplay(
-                                  link: LogoConverter.getLinkFromName(
+                                  link: DataMantainer.getLinkFromName(
                                       widget.deck.housesAndCards[1].house),
                                   size: size)),
                           HouseLogoDisplay(
-                              link: LogoConverter.getLinkFromName(
+                              link: DataMantainer.getLinkFromName(
                                   widget.deck.housesAndCards[2].house),
                               size: size),
                         ],

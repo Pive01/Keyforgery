@@ -48,5 +48,4 @@ abstract class DeckDao {
       double creatureControl,
       double artifactControl,
       double efficiencyBonus);
-
 }

@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import '../utilities/style.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.headerText, required this.callback, this.showCheckBox = false}) : super(key: key);
+  const LoginPage(
+      {Key? key,
+      required this.headerText,
+      required this.callback,
+      this.showCheckBox = false})
+      : super(key: key);
   final String headerText;
   final Function callback;
   final bool showCheckBox;
@@ -48,14 +53,16 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextField(
                     controller: usernameController,
-                    decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Username'),
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), labelText: 'Username'),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 15),
                     child: TextField(
                       controller: passwordController,
                       obscureText: true,
-                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Password'),
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(), labelText: 'Password'),
                     ),
                   ),
                   const SizedBox(
@@ -63,10 +70,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      widget.callback(usernameController.text, passwordController.text, isChecked);
+                      widget.callback(usernameController.text,
+                          passwordController.text, isChecked);
                     },
-                    style:
-                        ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blue), minimumSize: MaterialStateProperty.all(const Size.fromHeight(0))),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                        minimumSize: MaterialStateProperty.all(
+                            const Size.fromHeight(0))),
                     child: const Text(
                       "Login",
                       style: textFontBold,
@@ -77,10 +87,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
             widget.showCheckBox
                 ? CheckboxListTile(
-                    contentPadding: const EdgeInsets.only(left: 24, right: 24, top: 5),
+                    contentPadding:
+                        const EdgeInsets.only(left: 24, right: 24, top: 5),
                     controlAffinity: ListTileControlAffinity.leading,
                     title: const Text("Keep me logged"),
-                    subtitle: const Text("Keyforgery will add your new w/l automatically"),
+                    subtitle: const Text(
+                        "Keyforgery will add your new w/l automatically"),
                     value: isChecked,
                     activeColor: Colors.blue,
                     onChanged: (bool? newValue) {

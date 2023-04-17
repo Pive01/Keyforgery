@@ -3,7 +3,8 @@ import 'package:keyforgery/widgets/DeckDetails/ratioController.dart';
 
 import '../../data/models/DeckModel/Deck/Deck.dart';
 
-void showDeckBottomSheet(BuildContext context,Function onPlusWin, Function onMinusWin,Function onPlusLoss, Function onMinusLoss,Deck deck) {
+void showDeckBottomSheet(BuildContext context, Function onPlusWin,
+    Function onMinusWin, Function onPlusLoss, Function onMinusLoss, Deck deck) {
   showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

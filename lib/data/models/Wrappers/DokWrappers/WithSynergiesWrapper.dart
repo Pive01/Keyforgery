@@ -5,7 +5,7 @@ import '../../DeckModel/Deck/Deck.dart';
 part 'WithSynergiesWrapper.g.dart';
 
 @JsonSerializable()
-class WithSynergiesWrapper{
+class WithSynergiesWrapper {
   Deck deck;
   double synergyPercentile;
   double antisynergyPercentile;
@@ -13,6 +13,7 @@ class WithSynergiesWrapper{
   WithSynergiesWrapper(
       this.deck, this.synergyPercentile, this.antisynergyPercentile);
 
-  factory WithSynergiesWrapper.fromJson(Map<String, dynamic> json) => _$WithSynergiesWrapperFromJson(json);
+  factory WithSynergiesWrapper.fromJson(Map<String, dynamic> json) =>
+      _$WithSynergiesWrapperFromJson(json);
   Map<String, dynamic> toJson() => _$WithSynergiesWrapperToJson(this);
 }

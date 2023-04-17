@@ -4,7 +4,9 @@ import 'package:keyforgery/data/models/Card/Card/RetrievedCard.dart';
 import 'package:keyforgery/utilities/style.dart';
 
 class CardInListDisplayer extends StatelessWidget {
-  const CardInListDisplayer({Key? key, required this.card, required this.callback}) : super(key: key);
+  const CardInListDisplayer(
+      {Key? key, required this.card, required this.callback})
+      : super(key: key);
 
   final RetrievedCard card;
   final double size = 30;

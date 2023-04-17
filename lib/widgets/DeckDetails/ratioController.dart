@@ -47,8 +47,7 @@ class RatioController extends StatelessWidget {
                 ),
               ),
               IconButton(
-                  onPressed: () => onPlusClick(),
-                  icon: const Icon(Icons.add)),
+                  onPressed: () => onPlusClick(), icon: const Icon(Icons.add)),
             ],
           ),
         )

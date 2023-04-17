@@ -5,7 +5,7 @@ part 'Card.g.dart';
 
 @Entity(tableName: "cards")
 @JsonSerializable()
-class Card{
+class Card {
   @PrimaryKey()
   String id;
   String card_title;

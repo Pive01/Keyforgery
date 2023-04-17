@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'House.g.dart';
+
 @JsonSerializable()
 class House {
   String id;

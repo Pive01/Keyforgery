@@ -22,7 +22,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -32,12 +31,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _initializeAsyncDependencies() async {
     Future<HouseWrapper> houses = Api.getAllHouses();
     Future<ExpansionWrapper> expansions = Api.getAllExpansions();
-    LogoConverter.init(await houses, await expansions);
+    DataMantainer.init(await houses, await expansions);
     await DecksDatabase.initDatabase();
     var refreshToken = await SharedPrefs.getRefreshToken();
-    if(refreshToken.id != 0){
-      try { // TODO remove try catch and add proper handling... also figure out how exactly this refresh token stuff works
-        var newToken = await Api.sendRefreshToken(RefreshTokenWrapper(refreshToken));
+    if (refreshToken.id != 0) {
+      try {
+        // TODO remove try catch and add proper handling... also figure out how exactly this refresh token stuff works
+        var newToken =
+            await Api.sendRefreshToken(RefreshTokenWrapper(refreshToken));
         var newList = await Api.getCrucibleDecks(newToken.token);
         var oldList = await SharedPrefs.getCruciblePrevious();
         await updateDifferences(oldList.decks, newList.decks);

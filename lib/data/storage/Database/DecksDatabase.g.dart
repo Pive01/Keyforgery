@@ -404,24 +404,24 @@ class _$CardDao extends CardDao {
   Future<List<RetrievedCard>> getCardsFromDeckId(int deckId) async {
     return _queryAdapter.queryList(
         'select c.id, c.card_title,c.house,c.card_type, c.front_image,c.card_text,c.amber,c.rarity,cdj.count,cdj.is_anomaly,cdj.is_enhanced,cdj.is_legacy,cdj'
-            '.is_maverick from cards as c INNER JOIN cards_deck_join as cdj on c.id=cdj.cardId where cdj.deckId =?1 '
-            'Group by c.id Order by c.house, c.card_title',
+        '.is_maverick from cards as c INNER JOIN cards_deck_join as cdj on c.id=cdj.cardId where cdj.deckId =?1 '
+        'Group by c.id Order by c.house, c.card_title',
         arguments: [deckId],
         mapper: (Map<String, Object?> row) => RetrievedCard(
-          row['id'] as String,
-          row['card_title'] as String,
-          row['house'] as String,
-          row['card_type'] as String,
-          row['front_image'] as String,
-          row['card_text'] as String,
-          row['amber'] as int,
-          row['rarity'] as String,
-          (row['is_maverick'] as int) == 1,
-          (row['is_anomaly'] as int) == 1,
-          (row['is_enhanced'] as int) == 1,
-          row['count'] as int,
-          (row['is_legacy'] as int) == 1,
-        ));
+              row['id'] as String,
+              row['card_title'] as String,
+              row['house'] as String,
+              row['card_type'] as String,
+              row['front_image'] as String,
+              row['card_text'] as String,
+              row['amber'] as int,
+              row['rarity'] as String,
+              (row['is_maverick'] as int) == 1,
+              (row['is_anomaly'] as int) == 1,
+              (row['is_enhanced'] as int) == 1,
+              row['count'] as int,
+              (row['is_legacy'] as int) == 1,
+            ));
   }
 
   @override

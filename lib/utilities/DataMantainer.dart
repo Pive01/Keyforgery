@@ -7,7 +7,7 @@ import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
 const String untamedLogo =
     'https://cdn.keyforgegame.com/media/houses/Untamed_bXh9SJD.png';
 
-class LogoConverter {
+class DataMantainer {
   static late HouseWrapper _dataHouses;
   static late ExpansionWrapper _dataExpansion;
 
@@ -22,6 +22,12 @@ class LogoConverter {
 
   static List<Expansion> getExpansionsInfo() {
     return _dataExpansion.data;
+  }
+
+  static String getExpansionLogoFromName(String expansionName) {
+    return _dataExpansion.data
+        .firstWhere((element) => element.expansion.toUpperCase().replaceAll(" ", "_") == expansionName)
+        .image;
   }
 
   static String getLinkFromName(String houseName) {

@@ -1,4 +1,3 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 import 'RefreshToken.dart';
@@ -6,7 +5,7 @@ import 'RefreshToken.dart';
 part 'RefreshTokenWrapper.g.dart';
 
 @JsonSerializable()
-class RefreshTokenWrapper{
+class RefreshTokenWrapper {
   RefreshToken token;
 
   RefreshTokenWrapper(this.token);
@@ -16,6 +15,7 @@ class RefreshTokenWrapper{
     return 'RefreshTokenWrapper{token: $token}';
   }
 
-  factory RefreshTokenWrapper.fromJson(Map<String, dynamic> json) => _$RefreshTokenWrapperFromJson(json);
+  factory RefreshTokenWrapper.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenWrapperFromJson(json);
   Map<String, dynamic> toJson() => _$RefreshTokenWrapperToJson(this);
 }

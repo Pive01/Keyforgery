@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:keyforgery/data/models/Expansion/Expansion.dart';
+import 'package:keyforgery/utilities/utils.dart';
 import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
 
 import '../../data/models/House/House.dart';
 import '../../utilities/DataMantainer.dart';
 import '../../widgets/ExpansionLogoDisplay.dart';
 
-createFilterDialog(BuildContext context) {
+createFilterDialog(BuildContext context, Function callback) {
   return showDialog(
       context: context,
-      builder: (BuildContext context) => const Dialog.fullscreen(
-            child: Filter(),
-          ));
+      builder: (BuildContext context) =>
+          Dialog.fullscreen(child: Filter(callback: callback)));
 }
 
 class Filter extends StatefulWidget {
-  const Filter({Key? key}) : super(key: key);
+  const Filter({super.key, required this.callback});
+
+  final Function callback;
 
   @override
   State<Filter> createState() => _FilterState();
 }
 
 class _FilterState extends State<Filter> {
-  List<House> houseList = LogoConverter.getHousesInfo()
+  List<House> houseList = DataMantainer.getHousesInfo()
       .data
       .where((element) => element.id != "The Tide")
       .toList();
-  List<Expansion> expansionList = LogoConverter.getExpansionsInfo();
+  List<Expansion> expansionList = DataMantainer.getExpansionsInfo();
   List<String> filterHouses = [];
   List<String> filterExpansions = [];
+  String deckFilter = "";
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,10 @@ class _FilterState extends State<Filter> {
           actions: [
             TextButton(
               onPressed: () {
+                widget.callback(
+                    deckFilter,
+                    filterHouses.map((e) => e.makeKfFriendly()).toList(),
+                    filterExpansions.map((e) => e.toUpperCase().replaceAll(" ", "_")).toList());
                 Navigator.pop(context);
               },
               child: const Text(
@@ -65,12 +72,14 @@ class _FilterState extends State<Filter> {
             mainAxisSize: MainAxisSize.max,
             children: [
               const SizedBox(height: 5),
-              const TextField(
-                obscureText: true,
-                decoration: InputDecoration(
+              TextField(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Deck Name',
                 ),
+                onChanged: (String text) => setState(() {
+                  deckFilter = text;
+                }),
               ),
               const SizedBox(height: 10),
               ExpansionTile(
@@ -91,11 +100,13 @@ class _FilterState extends State<Filter> {
                                         if (value ?? false) {
                                           filterHouses.add(houseList[i].name);
                                         } else {
-                                          filterHouses.remove(houseList[i].name);
+                                          filterHouses
+                                              .remove(houseList[i].name);
                                         }
                                       })
                                     }),
-                            HouseLogoDisplay(link: houseList[i].image!, size: 30),
+                            HouseLogoDisplay(
+                                link: houseList[i].image!, size: 30),
                             Text(houseList[i].name)
                           ],
                         );
@@ -123,8 +134,8 @@ class _FilterState extends State<Filter> {
                                           filterExpansions
                                               .add(expansionList[i].expansion);
                                         } else {
-                                          filterExpansions
-                                              .remove(expansionList[i].expansion);
+                                          filterExpansions.remove(
+                                              expansionList[i].expansion);
                                         }
                                       })
                                     }),

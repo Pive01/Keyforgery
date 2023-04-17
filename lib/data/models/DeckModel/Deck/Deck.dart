@@ -37,7 +37,6 @@ class Deck {
   @ColumnInfo(name: "houses")
   List<HousesAndCards> housesAndCards;
 
-
   Deck(
       this.id,
       this.keyforgeId,
@@ -66,6 +65,12 @@ class Deck {
       this.housesAndCards);
 
   factory Deck.fromJson(Map<String, dynamic> json) => _$DeckFromJson(json);
+
+
+  @override
+  String toString() {
+    return 'Deck{name: $name, housesAndCards: $housesAndCards}';
+  }
 
   Map<String, dynamic> toJson() => _$DeckToJson(this);
 }

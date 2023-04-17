@@ -26,16 +26,18 @@ class DataTransfer extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.library_add),
                   title: const Text('Import'),
-                  description: const Text("Import decks and add them to your library"),
+                  description:
+                      const Text("Import decks and add them to your library"),
                   onPressed: (BuildContext context) {
-                    triggerOnLogin(context, "Decks Of Keyforge", ApiPerformer.importDokDecks,false);
+                    triggerOnLogin(context, "Decks Of Keyforge",
+                        ApiPerformer.importDokDecks, false);
                   },
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.upload),
                   title: const Text('Upload'),
-                  description: const Text("Upload decks in your library to DoK "),
-
+                  description:
+                      const Text("Upload decks in your library to DoK "),
                 ),
               ],
             ),
@@ -45,17 +47,21 @@ class DataTransfer extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(MdiIcons.fileReplace),
                   title: const Text('Override Import'),
-                  description: const Text("Import decks and replace current w/l "),
+                  description:
+                      const Text("Import decks and replace current w/l "),
                   onPressed: (BuildContext context) {
-                    triggerOnLogin(context, "TheCrucible", ApiPerformer.overrideCrucibleImports,true);
+                    triggerOnLogin(context, "TheCrucible",
+                        ApiPerformer.overrideCrucibleImports, true);
                   },
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.library_add),
                   title: const Text('Add Import'),
-                  description: const Text("Import decks and add imported w/l with current w/l "),
+                  description: const Text(
+                      "Import decks and add imported w/l with current w/l "),
                   onPressed: (BuildContext context) {
-                    triggerOnLogin(context, "TheCrucible", ApiPerformer.addCrucibleImports,true);
+                    triggerOnLogin(context, "TheCrucible",
+                        ApiPerformer.addCrucibleImports, true);
                   },
                 ),
               ],
@@ -65,13 +71,15 @@ class DataTransfer extends StatelessWidget {
   }
 }
 
-void triggerOnLogin(BuildContext context, String textHeader, Function apiExecute, bool showCheck) {
+void triggerOnLogin(BuildContext context, String textHeader,
+    Function apiExecute, bool showCheck) {
   Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => LoginPage(
                 headerText: textHeader,
-                callback: (String username, String password, bool isChecked) async {
+                callback:
+                    (String username, String password, bool isChecked) async {
                   Navigator.pop(context);
                   dynamic contextToPop;
                   showDialog<String>(
@@ -81,13 +89,18 @@ void triggerOnLogin(BuildContext context, String textHeader, Function apiExecute
                         return AlertDialog(
                           actions: <Widget>[
                             Row(
-                              children: const [Padding(padding: EdgeInsets.only(left: 8,top: 8,bottom: 8,right: 20), child: CircularProgressIndicator()), Text
-                                ("Loading")],
+                              children: const [
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 8, top: 8, bottom: 8, right: 20),
+                                    child: CircularProgressIndicator()),
+                                Text("Loading")
+                              ],
                             )
                           ],
                         );
                       });
-                  if(showCheck) {
+                  if (showCheck) {
                     await apiExecute(username, password, isChecked);
                   } else {
                     await apiExecute(username, password);

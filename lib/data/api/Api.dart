@@ -22,7 +22,6 @@ import 'DecksOfKeyforgeApi/DecksOfKeyforgeApi.dart';
 import 'MasterVaultApi/MasterVaultApi.dart';
 
 class Api {
-
   static final dokClient = DecksOfKeyforgeApi(Dio(
       BaseOptions(contentType: "application/json", headers: {'Timezone': 60})));
   static final masterVaultClient = MasterVaultApi(Dio());
@@ -41,7 +40,7 @@ class Api {
     return dokClient.importDecks(req);
   }
 
-  static Future<FilterCount> countDecks(GetDecksReqBody req){
+  static Future<FilterCount> countDecks(GetDecksReqBody req) {
     return dokClient.countDecks(req);
   }
 
@@ -73,12 +72,12 @@ class Api {
     return theCrucibleClient.getCrucibleDecks(token);
   }
 
-  static Future<LoggedTokenWrapper> sendRefreshToken(RefreshTokenWrapper token) {
+  static Future<LoggedTokenWrapper> sendRefreshToken(
+      RefreshTokenWrapper token) {
     return theCrucibleClient.refreshAuthorization(token);
   }
 
-  static Future<ExpansionWrapper> getAllExpansions(){
+  static Future<ExpansionWrapper> getAllExpansions() {
     return googleSheetClient.getAllExpansions();
   }
-
 }

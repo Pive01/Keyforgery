@@ -4,8 +4,9 @@ import '../GetDecksCardReqBody/GetDecksCardReqBody.dart';
 import '../GetDecksConstraintReqBody/GetDecksConstraintReqBody.dart';
 
 part 'GetDecksReqBody.g.dart';
+
 @JsonSerializable()
-class GetDecksReqBody{
+class GetDecksReqBody {
   List<GetDecksCardReqBody> cards;
   bool completedAuction;
   List<GetDecksConstraintReqBody> constraints;
@@ -38,35 +39,35 @@ class GetDecksReqBody{
   List<String> tournamentIds;
   bool withOwner;
 
-  GetDecksReqBody({
-    this.cards = const [],
-    this.completedAuction = false,
-    this.constraints = const [],
-    this.excludedHouses = const [],
-    this.expansions = const [],
-    this.forAuction = false,
-    this.forTrade = false,
-    this.houses  = const [],
-    this.myFavorites = false,
-    this.notForSale = false,
-    this.notTags = const [],
-    this.notes = "",
-    this.noteUser = "",
-    this.owner = "",
-    this.owners = const [],
-    this.page = 0,
-    this.pageSize = 20,
-    this.previousOwner = "",
-    this.sort = "SAS_RATING",
-    this.sortDirection = "DESC",
-    this.tags = const [],
-    this.teamDecks = false,
-    this.title = "",
-    this.tournamentIds = const [],
-    this.withOwner = false
-  });
+  GetDecksReqBody(
+      {this.cards = const [],
+      this.completedAuction = false,
+      this.constraints = const [],
+      this.excludedHouses = const [],
+      this.expansions = const [],
+      this.forAuction = false,
+      this.forTrade = false,
+      this.houses = const [],
+      this.myFavorites = false,
+      this.notForSale = false,
+      this.notTags = const [],
+      this.notes = "",
+      this.noteUser = "",
+      this.owner = "",
+      this.owners = const [],
+      this.page = 0,
+      this.pageSize = 20,
+      this.previousOwner = "",
+      this.sort = "SAS_RATING",
+      this.sortDirection = "DESC",
+      this.tags = const [],
+      this.teamDecks = false,
+      this.title = "",
+      this.tournamentIds = const [],
+      this.withOwner = false});
 
-  factory GetDecksReqBody.fromJson(Map<String, dynamic> json) => _$GetDecksReqBodyFromJson(json);
+  factory GetDecksReqBody.fromJson(Map<String, dynamic> json) =>
+      _$GetDecksReqBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetDecksReqBodyToJson(this);
 }

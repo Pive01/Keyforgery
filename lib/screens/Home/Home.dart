@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:keyforgery/screens/DeckInfo.dart';
+import 'package:keyforgery/utilities/utils.dart';
+import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
 
-import '../../data/api/Api.dart';
-import '../../data/models/CardsDeckRef.dart';
 import '../../data/models/DeckModel/Deck/Deck.dart';
-import '../../data/models/Card/Card/Card.dart';
-import '../../data/models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
 import '../../data/storage/Database/DecksDatabase.dart';
+import '../../utilities/DataMantainer.dart';
 import '../../widgets/DeckList.dart';
+import '../../widgets/ExpansionLogoDisplay.dart';
 import 'DeckSearchDelegate.dart';
 import 'FilterWidget.dart';
 
@@ -24,7 +24,8 @@ class _HomeState extends State<Home> {
   String activeSearchTerm = "";
   List<String> filterHouses = [];
   List<String> filterExpansions = [];
-  bool searchTermSelected = true;
+  List<bool> filterActive = [false, true, true, true];
+  List<bool> filterShow = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -46,53 +47,131 @@ class _HomeState extends State<Home> {
                           },
                       deckDao: deckDao));
 
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                setState(() {
-                  searchTerm = filterValue?.toLowerCase() ?? "";
-                });
+              setState(() {
+                searchTerm = filterValue?.toLowerCase() ?? "";
               });
             },
             icon: const Icon(Icons.search),
           ),
           IconButton(
-              onPressed: () => createFilterDialog(context),
+              onPressed: () => createFilterDialog(context, (String deckName,
+                      List<String> houses, List<String> expansions) {
+                    setState(() {
+                      searchTerm = deckName;
+                      filterHouses = houses;
+                      filterExpansions = expansions;
+                      filterActive = [
+                        true,
+                        deckName != "",
+                        houses.isNotEmpty,
+                        expansions.isNotEmpty
+                      ];
+                      filterShow = [
+                        deckName != "",
+                        houses.isNotEmpty,
+                        expansions.isNotEmpty
+                      ];
+                    });
+                  }),
               icon: const Icon(Icons.filter_list_outlined))
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () => testBtn()),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                searchTerm != ""
-                    ? FilterChip(
-                        label: Text(searchTerm),
-                        avatar: const Icon(Icons.check_rounded, color: Colors.white),
-                        backgroundColor: searchTermSelected ? Theme.of(context).colorScheme.inversePrimary: Theme.of(context).colorScheme.background,
-                        onSelected: (active) => setState(() {
-                              searchTermSelected = !searchTermSelected;
-                              if (searchTermSelected) {
-                                activeSearchTerm = searchTerm;
-                              } else {
-                                activeSearchTerm = "";
-                              }
-                            }))
-                    : const SizedBox.shrink()
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: filterActive[0]
+                  ? Row( //TODO wrap this logic in a single widget and make it reusable for all 3
+                      children: [
+                        filterShow[0]
+                            ? FilterChip(
+                                label: Text(searchTerm),
+                                avatar: const Icon(Icons.check_rounded,
+                                    color: Colors.white),
+                                backgroundColor: filterActive[1]
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary
+                                    : Theme.of(context).colorScheme.background,
+                                onSelected: (active) => setState(() {
+                                      filterActive[1] = !filterActive[1];
+                                    }))
+                            : const SizedBox.shrink(),
+                        const SizedBox(width: 10),
+                        filterShow[1]
+                            ? FilterChip(
+                                avatar: const Icon(Icons.check_rounded,
+                                    color: Colors.white),
+                                backgroundColor: filterActive[2]
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary
+                                    : Theme.of(context).colorScheme.background,
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 2),
+                                label: SizedBox(
+                                  height: 37,
+                                  child: GridView.count(
+                                      shrinkWrap: true,
+                                      crossAxisCount: 1,
+                                      childAspectRatio: 1,
+                                      scrollDirection: Axis.horizontal,
+                                      children: List.generate(
+                                          filterHouses.length, (i) {
+                                        return HouseLogoDisplay(
+                                            link: DataMantainer.getLinkFromName(
+                                                filterHouses[i]),
+                                            size: 300);
+                                      })),
+                                ),
+                                onSelected: (active) => setState(() {
+                                      filterActive[2] = !filterActive[2];
+                                    }))
+                            : const SizedBox.shrink(),
+                        const SizedBox(width: 10),
+                        filterShow[2]
+                            ? FilterChip(
+                                avatar: const Icon(Icons.check_rounded,
+                                    color: Colors.white),
+                                backgroundColor: filterActive[3]
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .inversePrimary
+                                    : Theme.of(context).colorScheme.background,
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 2),
+                                label: SizedBox(
+                                  height: 37,
+                                  child: GridView.count(
+                                      shrinkWrap: true,
+                                      crossAxisCount: 1,
+                                      childAspectRatio: 1,
+                                      scrollDirection: Axis.horizontal,
+                                      children: List.generate(
+                                          filterExpansions.length, (i) {
+                                        return ExpansionLogoDisplay(
+                                            link: DataMantainer
+                                                .getExpansionLogoFromName(
+                                                    filterExpansions[i]),
+                                            size: 300);
+                                      })),
+                                ),
+                                onSelected: (active) => setState(() {
+                                      filterActive[3] = !filterActive[3];
+                                    }))
+                            : const SizedBox.shrink(),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ),
             StreamBuilder<List<Deck>>(
                 stream: deckDao.getDecksAsStream(),
                 builder: (context, snapshot) {
                   return DeckList(
-                    deckList: snapshot.data
-                            ?.where((element) => element.name
-                                .toLowerCase()
-                                .contains(activeSearchTerm))
-                            .toList() ??
-                        [],
+                    deckList: getFilteredDecks(snapshot),
                     callback: (Deck selectedDeck) => {
                       Navigator.push(
                           context,
@@ -132,30 +211,40 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-}
 
-Future<void> testBtn() async {
-  MVCardsWrapper wrapper =
-      await Api.getCards("35901d31-5761-4f27-bd94-3b698c59d89f");
-  List<Card> shortedCardList = wrapper.linked.cards;
-  List<String> fullCardList = wrapper.data.links.cards;
-  shortedCardList.removeWhere((element) =>
-      element.id == "37377d67-2916-4d45-b193-bea6ecd853e3"); //remove tide card
-  List<CardsDeckRef> finalList = shortedCardList
-      .map((e) => CardsDeckRef(
-          e.id,
-          124124,
-          fullCardList
-              .map((cardId) => cardId == e.id ? 1 : 0)
-              .reduce((value, element) => value + element),
-          e.is_maverick,
-          wrapper.data.set_era_cards.Legacy.any((element) => element == e.id),
-          e.is_anomaly,
-          e.is_enhanced))
-      .toList();
-  int count = 0;
-  for (CardsDeckRef c in finalList) {
-    count += c.count;
+  List<Deck> getFilteredDecks(AsyncSnapshot<List<Deck>> snapshot) {
+    List<Deck> tempDecks = snapshot.data ?? [];
+
+    if (!filterActive[0]) {
+      return tempDecks;
+    } else {
+      if (filterActive[1]) {
+        tempDecks = tempDecks
+            .where((element) =>
+                element.name.toLowerCase().contains(searchTerm.toLowerCase()))
+            .toList();
+      }
+      if (filterActive[2]) {
+        if (filterHouses.length > 3) {
+          tempDecks = tempDecks
+              .where((element) => element.housesAndCards
+                  .any((e) => filterHouses.contains(e.house.makeKfFriendly())))
+              .toList();
+        } else {
+          tempDecks = tempDecks
+              .where((element) => filterHouses.every((e) => element
+                  .housesAndCards
+                  .any((deckHouse) => e == deckHouse.house)))
+              .toList();
+        }
+      }
+      if (filterActive[3]) {
+        tempDecks = tempDecks
+            .where((element) => filterExpansions.contains(element.expansion))
+            .toList();
+      }
+
+      return tempDecks;
+    }
   }
-  print(count);
 }

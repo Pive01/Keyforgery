@@ -21,8 +21,8 @@ abstract class DecksDatabase extends FloorDatabase {
 
   static Future<void> initDatabase() async {
     if (!_isInitialized) {
-      _database = await $FloorDecksDatabase
-          .databaseBuilder('deck_database').build();
+      _database =
+          await $FloorDecksDatabase.databaseBuilder('deck_database').build();
       _isInitialized = true;
     }
   }
@@ -30,8 +30,6 @@ abstract class DecksDatabase extends FloorDatabase {
   static DecksDatabase getSyncDB() {
     return _database;
   }
-
-
 
   DeckDao get deckDao;
 

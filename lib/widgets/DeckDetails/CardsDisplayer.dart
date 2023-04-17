@@ -11,7 +11,8 @@ class CardDisplayer extends StatefulWidget {
   final Deck deck;
   final List<RetrievedCard> cardList;
 
-  const CardDisplayer({Key? key, required this.deck, required this.cardList}) : super(key: key);
+  const CardDisplayer({Key? key, required this.deck, required this.cardList})
+      : super(key: key);
 
   @override
   State<CardDisplayer> createState() => _CardDisplayerState();
@@ -36,7 +37,7 @@ class _CardDisplayerState extends State<CardDisplayer> {
                       tabs: widget.deck.housesAndCards
                           .map((e) => Tab(
                                   child: HouseLogoDisplay(
-                                link: LogoConverter.getLinkFromName(e.house),
+                                link: DataMantainer.getLinkFromName(e.house),
                                 size: 70,
                               )))
                           .toList()))
@@ -46,7 +47,12 @@ class _CardDisplayerState extends State<CardDisplayer> {
         ),
         body: Container(
           color: Colors.redAccent.withOpacity(0),
-          child: TabBarView(children: widget.deck.housesAndCards.map((e) => CardList(cardList: widget.cardList, house: e.house.makeKfFriendly())).toList()),
+          child: TabBarView(
+              children: widget.deck.housesAndCards
+                  .map((e) => CardList(
+                      cardList: widget.cardList,
+                      house: e.house.makeKfFriendly()))
+                  .toList()),
         ),
       ),
     );

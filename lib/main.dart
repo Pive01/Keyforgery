@@ -7,7 +7,7 @@ void main() {
   runApp(SplashScreen(
     key: UniqueKey(),
     onInitializationComplete: () => runApp(
-        const App(),
+      const App(),
     ),
   ));
 }

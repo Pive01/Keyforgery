@@ -17,7 +17,6 @@ class DeckList extends StatefulWidget {
 }
 
 class _DeckListState extends State<DeckList> {
-
   @override
   Widget build(BuildContext context) {
     return widget.deckList.isNotEmpty

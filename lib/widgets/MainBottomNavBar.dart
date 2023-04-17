@@ -23,7 +23,7 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const[
+      body: const [
         Home(),
         Search(),
         Scaffold(),

@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'EraCards.g.dart';
 
 @JsonSerializable()
-class EraCards{
+class EraCards {
   List<String> Legacy;
   List<String> Anomaly;
 
@@ -14,6 +14,7 @@ class EraCards{
     return 'EraCards{Legacy: $Legacy, Anomaly: $Anomaly}';
   }
 
-  factory EraCards.fromJson(Map<String, dynamic> json) => _$EraCardsFromJson(json);
+  factory EraCards.fromJson(Map<String, dynamic> json) =>
+      _$EraCardsFromJson(json);
   Map<String, dynamic> toJson() => _$EraCardsToJson(this);
 }

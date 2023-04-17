@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../../House/House.dart';
 
 part 'HouseWrapper.g.dart';
+
 @JsonSerializable()
 class HouseWrapper {
   List<House> data;
@@ -14,6 +15,7 @@ class HouseWrapper {
     return 'HouseWrapper{data: $data}';
   }
 
-  factory HouseWrapper.fromJson(Map<String, dynamic> json) => _$HouseWrapperFromJson(json);
+  factory HouseWrapper.fromJson(Map<String, dynamic> json) =>
+      _$HouseWrapperFromJson(json);
   Map<String, dynamic> toJson() => _$HouseWrapperToJson(this);
 }

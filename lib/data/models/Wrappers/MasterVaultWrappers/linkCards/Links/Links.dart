@@ -1,10 +1,9 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Links.g.dart';
 
 @JsonSerializable()
-class Links{
+class Links {
   List<String> houses;
   List<String> cards;
 

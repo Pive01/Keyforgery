@@ -5,13 +5,14 @@ import '../../../../DeckModel/Deck/Deck.dart';
 part 'FilterWrapper.g.dart';
 
 @JsonSerializable()
-class FilterWrapper{
+class FilterWrapper {
   int page;
   List<Deck> decks;
 
   FilterWrapper(this.page, this.decks);
 
-  factory FilterWrapper.fromJson(Map<String, dynamic> json) => _$FilterWrapperFromJson(json);
+  factory FilterWrapper.fromJson(Map<String, dynamic> json) =>
+      _$FilterWrapperFromJson(json);
 
   Map<String, dynamic> toJson() => _$FilterWrapperToJson(this);
 }
