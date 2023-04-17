@@ -6,6 +6,7 @@ import 'package:keyforgery/data/models/Validator/UserValidator.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/DeckModel/Deck/Deck.dart';
+import '../models/FilterCount.dart';
 import '../models/UserInfo.dart';
 import '../models/Wrappers/DokWrappers/DokFilterWrappers/FilterWrapper/FilterWrapper.dart';
 import '../models/Wrappers/DokWrappers/DokFilterWrappers/ReqBody/GetDecksReqBody/GetDecksReqBody.dart';
@@ -38,6 +39,10 @@ class Api {
 
   static Future<FilterWrapper> getDecksByUserName(GetDecksReqBody req) {
     return dokClient.importDecks(req);
+  }
+
+  static Future<FilterCount> countDecks(GetDecksReqBody req){
+    return dokClient.countDecks(req);
   }
 
   static Future<WithSynergiesWrapper> getDeckById(String id) {

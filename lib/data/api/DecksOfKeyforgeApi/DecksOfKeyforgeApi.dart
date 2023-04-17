@@ -3,6 +3,7 @@ import 'package:keyforgery/data/models/Wrappers/DokWrappers/WithSynergiesWrapper
 import 'package:retrofit/retrofit.dart';
 
 import '../../models/DeckModel/Deck/Deck.dart';
+import '../../models/FilterCount.dart';
 import '../../models/UserInfo.dart';
 import '../../models/Validator/UserValidator.dart';
 import '../../models/Wrappers/DokWrappers/DokFilterWrappers/FilterWrapper/FilterWrapper.dart';
@@ -25,6 +26,9 @@ abstract class DecksOfKeyforgeApi {
 
   @POST("decks/filter")
   Future<FilterWrapper> importDecks(@Body() GetDecksReqBody body);
+
+  @POST("decks/filter-count")
+  Future<FilterCount> countDecks(@Body() GetDecksReqBody body);
 
   @POST("users/login")
   Future<HttpResponse<void>> getAuthorization(@Body() UserValidator usr);
