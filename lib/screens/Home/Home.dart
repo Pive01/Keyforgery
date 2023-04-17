@@ -8,6 +8,7 @@ import '../../data/models/Card/Card/Card.dart';
 import '../../data/models/Wrappers/MasterVaultWrappers/linkCards/MVCardsWrapper/MVCardsWrapper.dart';
 import '../../data/storage/Database/DecksDatabase.dart';
 import '../../widgets/DeckList.dart';
+import 'DeckSearchDelegate.dart';
 import 'FilterWidget.dart';
 
 class Home extends StatefulWidget {
@@ -19,12 +20,32 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final deckDao = DecksDatabase.getSyncDB().deckDao;
-
+  String searchTerm = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+            onPressed: () async {
+              String? filterValue = await showSearch(
+                  context: context,
+                  delegate: DeckSearchDelegate(
+                      callback: (Deck deck) => (){
+                        Navigator.pop(context);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => DeckInfo(deck: deck)));
+                      }, deckDao: deckDao)
+              );
+
+              WidgetsBinding.instance.addPostFrameCallback((_){
+                setState(() {
+                  searchTerm = filterValue ?? "";
+                });
+              });
+
+            },
+            icon: const Icon(Icons.search),
+          ),
           IconButton(onPressed: () => createFilterDialog(context), icon: const Icon(Icons.filter_list_outlined))
         ],
       ),
@@ -33,7 +54,7 @@ class _HomeState extends State<Home> {
           stream: deckDao.getDecksAsStream(),
           builder: (context, snapshot) {
             return DeckList(
-              deckList: snapshot.data ?? [],
+              deckList: snapshot.data?.where((element) => element.name.contains(searchTerm)).toList() ?? [],
               callback: (Deck selectedDeck) => {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => DeckInfo(deck: selectedDeck))),
               },
