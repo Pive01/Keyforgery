@@ -13,5 +13,6 @@ class TokenWrapper {
 
   factory TokenWrapper.fromJson(Map<String, dynamic> json) =>
       _$TokenWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$TokenWrapperToJson(this);
 }

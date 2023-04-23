@@ -17,9 +17,7 @@ createFilterDialog(BuildContext context, Function callback) {
 }
 
 class Filter extends StatefulWidget {
-  const Filter(
-      {super.key,
-      required this.callback});
+  const Filter({super.key, required this.callback});
 
   final Function callback;
 
@@ -145,6 +143,7 @@ class _FilterState extends State<Filter> {
                                           filterExpansions
                                               .remove(expansionList[i].name);
                                         }
+                                        print(filterExpansions);
                                       })
                                     }),
                             ExpansionLogoDisplay(

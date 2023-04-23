@@ -17,5 +17,6 @@ class HouseWrapper {
 
   factory HouseWrapper.fromJson(Map<String, dynamic> json) =>
       _$HouseWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$HouseWrapperToJson(this);
 }

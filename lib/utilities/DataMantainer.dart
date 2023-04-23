@@ -25,16 +25,21 @@ class DataMantainer {
   }
 
   static List<Expansion> getExpansionsInfo() {
-    _dataExpansion.data.removeWhere((element) => element.set_id== 452);
+    _dataExpansion.data.removeWhere((element) => element.set_id == 452);
     return _dataExpansion.data;
   }
 
-  static DownloadAssetsController getAssetController(){
+  static DownloadAssetsController getAssetController() {
     return _downloadAssetsController;
   }
 
   static String getExpansionLogoFromName(String expansionName) {
-    return expansionName.toLowerCase().split(" ").map((e) => e[0]).join("");
+    return expansionName
+        .toLowerCase()
+        .replaceAll("_", " ")
+        .split(" ")
+        .map((e) => e[0])
+        .join("");
   }
 
   static String getLinkFromName(String houseName) {

@@ -13,5 +13,6 @@ class Linked {
   Linked(this.houses, this.cards);
 
   factory Linked.fromJson(Map<String, dynamic> json) => _$LinkedFromJson(json);
+
   Map<String, dynamic> toJson() => _$LinkedToJson(this);
 }

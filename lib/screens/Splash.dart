@@ -9,6 +9,7 @@ import '../data/models/Wrappers/HouseWrapper/HouseWrapper.dart';
 import '../data/models/Wrappers/TheCrucibleWrapper/TokenWrapper/RefreshTokenWrapper.dart';
 import '../data/storage/Database/DecksDatabase.dart';
 import '../utilities/DataMantainer.dart';
+import '../utilities/style.dart';
 
 class SplashScreen extends StatefulWidget {
   final Function onInitializationComplete;
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   DownloadAssetsController downloadAssetsController =
       DownloadAssetsController();
   bool downloaded = false;
-  String message = 'Downloading assets';
+  String message = 'Getting latest information';
   double progressValue = 0;
 
   @override
@@ -44,7 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future<HouseWrapper> houses = Api.getAllHouses();
     Future<ExpansionWrapper> expansions = Api.getAllExpansions();
-    DataMantainer.init(await houses, await expansions, downloadAssetsController);
+    DataMantainer.init(
+        await houses, await expansions, downloadAssetsController);
     await DecksDatabase.initDatabase();
     var refreshToken = await SharedPrefs.getRefreshToken();
     if (refreshToken.id != 0) {
@@ -70,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
         onProgress: (progressValue) {
           downloaded = false;
           setState(() {
-            print(progressValue);
+            this.progressValue = progressValue / 100;
             if (progressValue < 100) {
               downloaded = true;
             }
@@ -89,10 +91,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorSchemeSeed: Colors.deepOrange,
+        useMaterial3: true,
+        brightness: Brightness.light,
+      ),
       home: Center(
-          child: LinearProgressIndicator(
-        value: progressValue / 100,
-        semanticsLabel: message,
+          child: Padding(
+        padding: const EdgeInsets.only(right: 20, left: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DefaultTextStyle(
+              style: textFontBold,
+              child: Text(message),
+            ),
+            const SizedBox(height: 10),
+            LinearProgressIndicator(
+              value: downloaded ? progressValue : null,
+            ),
+          ],
+        ),
       )),
     );
   }

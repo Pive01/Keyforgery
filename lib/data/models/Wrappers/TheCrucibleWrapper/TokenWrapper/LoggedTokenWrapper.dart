@@ -10,5 +10,6 @@ class LoggedTokenWrapper {
 
   factory LoggedTokenWrapper.fromJson(Map<String, dynamic> json) =>
       _$LoggedTokenWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$LoggedTokenWrapperToJson(this);
 }

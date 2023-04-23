@@ -66,7 +66,6 @@ class Deck {
 
   factory Deck.fromJson(Map<String, dynamic> json) => _$DeckFromJson(json);
 
-
   @override
   String toString() {
     return 'Deck{name: $name, housesAndCards: $housesAndCards}';

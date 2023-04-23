@@ -12,8 +12,7 @@ import 'DeckSearchDelegate.dart';
 import 'FilterWidget.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key})
-      : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -55,10 +54,8 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.search),
           ),
           IconButton(
-              onPressed: () =>
-                  createFilterDialog(context,
-                      (String deckName, List<String> houses,
-                          List<String> expansions) {
+              onPressed: () => createFilterDialog(context, (String deckName,
+                      List<String> houses, List<String> expansions) {
                     setState(() {
                       searchTerm = deckName;
                       filterHouses = houses;
@@ -90,6 +87,11 @@ class _HomeState extends State<Home> {
                   ? Row(
                       //TODO wrap this logic in a single widget and make it reusable for all 3
                       children: [
+                        IconButton(
+                            onPressed: () => setState(() {
+                                  filterActive[0] = false;
+                                }),
+                            icon: const Icon(Icons.close)),
                         filterShow[0]
                             ? FilterChip(
                                 label: Text(searchTerm),

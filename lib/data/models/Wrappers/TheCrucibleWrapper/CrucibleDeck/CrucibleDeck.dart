@@ -17,5 +17,6 @@ class CrucibleDeck {
 
   factory CrucibleDeck.fromJson(Map<String, dynamic> json) =>
       _$CrucibleDeckFromJson(json);
+
   Map<String, dynamic> toJson() => _$CrucibleDeckToJson(this);
 }

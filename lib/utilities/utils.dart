@@ -65,6 +65,7 @@ class SharedPrefs {
   static const String _defaultRefreshToken =
       '{"id":0,"username":"","token":""}';
   static List<String> houses = [];
+
   static Future<void> setRefreshToken(RefreshToken token) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(_theCrucibleRefresh, json.encode(token));

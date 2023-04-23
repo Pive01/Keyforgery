@@ -32,5 +32,6 @@ class RetrievedCard extends Card {
 
   factory RetrievedCard.fromJson(Map<String, dynamic> json) =>
       _$RetrievedCardFromJson(json);
+
   Map<String, dynamic> toJson() => _$RetrievedCardToJson(this);
 }

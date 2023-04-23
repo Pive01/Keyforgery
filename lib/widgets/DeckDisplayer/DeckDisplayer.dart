@@ -107,20 +107,17 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                       child: Column(
                         children: [
                           HouseLogoDisplay(
-                            name:
-                                widget.deck.housesAndCards[0].house,
+                            name: widget.deck.housesAndCards[0].house,
                             size: size,
                           ),
                           Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: HouseLogoDisplay(
-                                  name:
-                                      widget.deck.housesAndCards[1].house,
+                                  name: widget.deck.housesAndCards[1].house,
                                   size: size)),
                           HouseLogoDisplay(
-                              name:
-                                  widget.deck.housesAndCards[2].house,
+                              name: widget.deck.housesAndCards[2].house,
                               size: size),
                         ],
                       )),

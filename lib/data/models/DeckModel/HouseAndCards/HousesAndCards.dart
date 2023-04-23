@@ -5,6 +5,7 @@ part 'HousesAndCards.g.dart';
 @JsonSerializable()
 class HousesAndCards {
   String house;
+
   HousesAndCards(this.house);
 
   @override
@@ -14,5 +15,6 @@ class HousesAndCards {
 
   factory HousesAndCards.fromJson(Map<String, dynamic> json) =>
       _$HousesAndCardsFromJson(json);
+
   Map<String, dynamic> toJson() => _$HousesAndCardsToJson(this);
 }

@@ -11,5 +11,6 @@ class UserValidator {
 
   factory UserValidator.fromJson(Map<String, dynamic> json) =>
       _$UserValidatorFromJson(json);
+
   Map<String, dynamic> toJson() => _$UserValidatorToJson(this);
 }

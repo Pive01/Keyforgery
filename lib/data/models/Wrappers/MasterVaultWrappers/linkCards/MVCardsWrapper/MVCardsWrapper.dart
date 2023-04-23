@@ -20,5 +20,6 @@ class MVCardsWrapper {
 
   factory MVCardsWrapper.fromJson(Map<String, dynamic> json) =>
       _$MVCardsWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$MVCardsWrapperToJson(this);
 }

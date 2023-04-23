@@ -11,5 +11,6 @@ class CrucibleLogin {
 
   factory CrucibleLogin.fromJson(Map<String, dynamic> json) =>
       _$CrucibleLoginFromJson(json);
+
   Map<String, dynamic> toJson() => _$CrucibleLoginToJson(this);
 }

@@ -17,5 +17,6 @@ class RefreshTokenWrapper {
 
   factory RefreshTokenWrapper.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$RefreshTokenWrapperToJson(this);
 }

@@ -11,5 +11,6 @@ class FilterCount {
 
   factory FilterCount.fromJson(Map<String, dynamic> json) =>
       _$FilterCountFromJson(json);
+
   Map<String, dynamic> toJson() => _$FilterCountToJson(this);
 }

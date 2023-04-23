@@ -17,5 +17,6 @@ class CrucibleDecksWrapper {
 
   factory CrucibleDecksWrapper.fromJson(Map<String, dynamic> json) =>
       _$CrucibleDecksWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$CrucibleDecksWrapperToJson(this);
 }

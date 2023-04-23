@@ -16,5 +16,6 @@ class EraCards {
 
   factory EraCards.fromJson(Map<String, dynamic> json) =>
       _$EraCardsFromJson(json);
+
   Map<String, dynamic> toJson() => _$EraCardsToJson(this);
 }

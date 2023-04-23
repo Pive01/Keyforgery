@@ -48,5 +48,6 @@ class MVDeck {
   }
 
   factory MVDeck.fromJson(Map<String, dynamic> json) => _$MVDeckFromJson(json);
+
   Map<String, dynamic> toJson() => _$MVDeckToJson(this);
 }

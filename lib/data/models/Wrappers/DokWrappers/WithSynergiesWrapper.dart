@@ -15,5 +15,6 @@ class WithSynergiesWrapper {
 
   factory WithSynergiesWrapper.fromJson(Map<String, dynamic> json) =>
       _$WithSynergiesWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$WithSynergiesWrapperToJson(this);
 }

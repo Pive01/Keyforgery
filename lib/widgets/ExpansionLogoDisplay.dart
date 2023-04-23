@@ -6,9 +6,7 @@ import 'package:keyforgery/utilities/DataMantainer.dart';
 
 class ExpansionLogoDisplay extends StatefulWidget {
   const ExpansionLogoDisplay(
-      {super.key,
-      required this.name,
-      required this.size});
+      {super.key, required this.name, required this.size});
 
   final String name;
   final double size;
@@ -33,4 +31,3 @@ class _ExpansionLogoDisplayState extends State<ExpansionLogoDisplay> {
             )));
   }
 }
-

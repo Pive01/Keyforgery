@@ -16,5 +16,6 @@ class House {
   }
 
   factory House.fromJson(Map<String, dynamic> json) => _$HouseFromJson(json);
+
   Map<String, dynamic> toJson() => _$HouseToJson(this);
 }

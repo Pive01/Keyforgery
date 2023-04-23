@@ -12,5 +12,6 @@ class ExpansionWrapper {
 
   factory ExpansionWrapper.fromJson(Map<String, dynamic> json) =>
       _$ExpansionWrapperFromJson(json);
+
   Map<String, dynamic> toJson() => _$ExpansionWrapperToJson(this);
 }
