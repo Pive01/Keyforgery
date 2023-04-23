@@ -7,11 +7,11 @@ part of 'Expansion.dart';
 // **************************************************************************
 
 Expansion _$ExpansionFromJson(Map<String, dynamic> json) => Expansion(
-      json['expansion'] as String,
-      json['image'] as String,
+      json['set_id'] as int,
+      json['name'] as String,
     );
 
 Map<String, dynamic> _$ExpansionToJson(Expansion instance) => <String, dynamic>{
-      'expansion': instance.expansion,
-      'image': instance.image,
+      'set_id': instance.set_id,
+      'name': instance.name,
     };

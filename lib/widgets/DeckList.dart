@@ -21,6 +21,7 @@ class _DeckListState extends State<DeckList> {
   Widget build(BuildContext context) {
     return widget.deckList.isNotEmpty
         ? ListView.separated(
+            cacheExtent: 1500,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.only(top: 2),

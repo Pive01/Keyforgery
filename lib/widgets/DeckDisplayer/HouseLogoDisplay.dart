@@ -1,10 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:keyforgery/utilities/DataMantainer.dart';
 
 class HouseLogoDisplay extends StatefulWidget {
-  const HouseLogoDisplay({super.key, required this.link, required this.size});
+  const HouseLogoDisplay({super.key, required this.name, required this.size});
 
-  final String link;
+  final String name;
   final double size;
 
   @override
@@ -16,11 +18,11 @@ class _HouseLogoDisplayState extends State<HouseLogoDisplay> {
   Widget build(BuildContext context) {
     return ClipRRect(
         borderRadius: BorderRadius.circular(10000.0),
-        child: CachedNetworkImage(
+        child: Image.file(
+          File(
+              '${DataMantainer.getAssetController().assetsDir}/KeyforgeryAssets/${widget.name}.png'),
           width: widget.size,
           height: widget.size,
-          imageUrl: widget.link,
-          placeholder: (context, url) => const CircularProgressIndicator(),
         ));
   }
 }

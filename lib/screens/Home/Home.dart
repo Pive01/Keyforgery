@@ -12,7 +12,8 @@ import 'DeckSearchDelegate.dart';
 import 'FilterWidget.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key})
+      : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -54,8 +55,10 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.search),
           ),
           IconButton(
-              onPressed: () => createFilterDialog(context, (String deckName,
-                      List<String> houses, List<String> expansions) {
+              onPressed: () =>
+                  createFilterDialog(context,
+                      (String deckName, List<String> houses,
+                          List<String> expansions) {
                     setState(() {
                       searchTerm = deckName;
                       filterHouses = houses;
@@ -84,7 +87,8 @@ class _HomeState extends State<Home> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: filterActive[0]
-                  ? Row( //TODO wrap this logic in a single widget and make it reusable for all 3
+                  ? Row(
+                      //TODO wrap this logic in a single widget and make it reusable for all 3
                       children: [
                         filterShow[0]
                             ? FilterChip(
@@ -122,9 +126,9 @@ class _HomeState extends State<Home> {
                                       children: List.generate(
                                           filterHouses.length, (i) {
                                         return HouseLogoDisplay(
-                                            link: DataMantainer.getLinkFromName(
-                                                filterHouses[i]),
-                                            size: 300);
+                                          name: filterHouses[i],
+                                          size: 300,
+                                        );
                                       })),
                                 ),
                                 onSelected: (active) => setState(() {
@@ -153,7 +157,7 @@ class _HomeState extends State<Home> {
                                       children: List.generate(
                                           filterExpansions.length, (i) {
                                         return ExpansionLogoDisplay(
-                                            link: DataMantainer
+                                            name: DataMantainer
                                                 .getExpansionLogoFromName(
                                                     filterExpansions[i]),
                                             size: 300);

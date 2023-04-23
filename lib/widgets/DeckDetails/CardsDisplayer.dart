@@ -4,7 +4,6 @@ import 'package:keyforgery/widgets/DeckDetails/CardList.dart';
 
 import '../../data/models/Card/Card/RetrievedCard.dart';
 import '../../data/models/DeckModel/Deck/Deck.dart';
-import '../../utilities/DataMantainer.dart';
 import '../DeckDisplayer/HouseLogoDisplay.dart';
 
 class CardDisplayer extends StatefulWidget {
@@ -37,7 +36,7 @@ class _CardDisplayerState extends State<CardDisplayer> {
                       tabs: widget.deck.housesAndCards
                           .map((e) => Tab(
                                   child: HouseLogoDisplay(
-                                link: DataMantainer.getLinkFromName(e.house),
+                                name: e.house.makeKfFriendly(),
                                 size: 70,
                               )))
                           .toList()))

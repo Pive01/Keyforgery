@@ -10,12 +10,16 @@ import '../../widgets/ExpansionLogoDisplay.dart';
 createFilterDialog(BuildContext context, Function callback) {
   return showDialog(
       context: context,
-      builder: (BuildContext context) =>
-          Dialog.fullscreen(child: Filter(callback: callback)));
+      builder: (BuildContext context) => Dialog.fullscreen(
+              child: Filter(
+            callback: callback,
+          )));
 }
 
 class Filter extends StatefulWidget {
-  const Filter({super.key, required this.callback});
+  const Filter(
+      {super.key,
+      required this.callback});
 
   final Function callback;
 
@@ -55,7 +59,9 @@ class _FilterState extends State<Filter> {
                 widget.callback(
                     deckFilter,
                     filterHouses.map((e) => e.makeKfFriendly()).toList(),
-                    filterExpansions.map((e) => e.toUpperCase().replaceAll(" ", "_")).toList());
+                    filterExpansions
+                        .map((e) => e.toUpperCase().replaceAll(" ", "_"))
+                        .toList());
                 Navigator.pop(context);
               },
               child: const Text(
@@ -106,7 +112,9 @@ class _FilterState extends State<Filter> {
                                       })
                                     }),
                             HouseLogoDisplay(
-                                link: houseList[i].image!, size: 30),
+                              name: houseList[i].name.makeKfFriendly(),
+                              size: 30,
+                            ),
                             Text(houseList[i].name)
                           ],
                         );
@@ -127,23 +135,25 @@ class _FilterState extends State<Filter> {
                           children: [
                             Checkbox(
                                 value: filterExpansions
-                                    .contains(expansionList[i].expansion),
+                                    .contains(expansionList[i].name),
                                 onChanged: (value) => {
                                       setState(() {
                                         if (value ?? false) {
                                           filterExpansions
-                                              .add(expansionList[i].expansion);
+                                              .add(expansionList[i].name);
                                         } else {
-                                          filterExpansions.remove(
-                                              expansionList[i].expansion);
+                                          filterExpansions
+                                              .remove(expansionList[i].name);
                                         }
                                       })
                                     }),
                             ExpansionLogoDisplay(
-                                link: expansionList[i].image, size: 25),
+                                name: DataMantainer.getExpansionLogoFromName(
+                                    expansionList[i].name),
+                                size: 25),
                             Flexible(
                               child: Text(
-                                expansionList[i].expansion,
+                                expansionList[i].name,
                                 overflow: TextOverflow.fade,
                                 softWrap: false,
                               ),

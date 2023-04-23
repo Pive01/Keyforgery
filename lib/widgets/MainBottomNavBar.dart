@@ -23,11 +23,11 @@ class _MainBottomNavBarState extends State<MainBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const [
+      body: [
         Home(),
-        Search(),
-        Scaffold(),
-        Settings(),
+        const Search(),
+        const Scaffold(),
+        const Settings(),
       ][_selectedIndex],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,

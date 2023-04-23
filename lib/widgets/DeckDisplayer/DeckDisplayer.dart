@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:keyforgery/utilities/DataMantainer.dart';
 import 'package:keyforgery/widgets/DeckDisplayer/HouseLogoDisplay.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -108,20 +107,20 @@ class _DeckDisplayerState extends State<DeckDisplayer> {
                       child: Column(
                         children: [
                           HouseLogoDisplay(
-                            link: DataMantainer.getLinkFromName(
-                                widget.deck.housesAndCards[0].house),
+                            name:
+                                widget.deck.housesAndCards[0].house,
                             size: size,
                           ),
                           Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: HouseLogoDisplay(
-                                  link: DataMantainer.getLinkFromName(
-                                      widget.deck.housesAndCards[1].house),
+                                  name:
+                                      widget.deck.housesAndCards[1].house,
                                   size: size)),
                           HouseLogoDisplay(
-                              link: DataMantainer.getLinkFromName(
-                                  widget.deck.housesAndCards[2].house),
+                              name:
+                                  widget.deck.housesAndCards[2].house,
                               size: size),
                         ],
                       )),

@@ -44,6 +44,29 @@ class _MasterVaultApi implements MasterVaultApi {
   }
 
   @override
+  Future<ExpansionWrapper> getAllExpansions() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ExpansionWrapper>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'decks/expansions/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ExpansionWrapper.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<MVCardsWrapper> getCards(deckId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

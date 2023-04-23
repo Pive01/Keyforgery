@@ -4,15 +4,11 @@ part 'Expansion.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Expansion {
-  String expansion;
-  String image;
+  int set_id;
+  String name;
 
-  Expansion(this.expansion, this.image);
+  Expansion(this.set_id, this.name);
 
-  @override
-  String toString() {
-    return 'Expansion{expansion: $expansion, image: $image}';
-  }
 
   factory Expansion.fromJson(Map<String, dynamic> json) =>
       _$ExpansionFromJson(json);

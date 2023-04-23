@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:keyforgery/data/api/GoogleSheetApi/GoogleSheetApi.dart';
 import 'package:keyforgery/data/api/TheCrucible/TheCrucibleApi.dart';
 import 'package:keyforgery/data/models/Validator/CrucibleLogin.dart';
 import 'package:keyforgery/data/models/Validator/UserValidator.dart';
@@ -26,7 +25,6 @@ class Api {
       BaseOptions(contentType: "application/json", headers: {'Timezone': 60})));
   static final masterVaultClient = MasterVaultApi(Dio());
   static final theCrucibleClient = TheCrucibleApi(Dio());
-  static final googleSheetClient = GoogleSheetApi(Dio());
 
   static Future<List<Deck>> getDecksByNamePreview(String name) {
     return dokClient.getDecksByNamePreview(name);
@@ -78,6 +76,6 @@ class Api {
   }
 
   static Future<ExpansionWrapper> getAllExpansions() {
-    return googleSheetClient.getAllExpansions();
+    return masterVaultClient.getAllExpansions();
   }
 }

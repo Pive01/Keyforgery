@@ -1,3 +1,4 @@
+import 'package:download_assets/download_assets.dart';
 import 'package:keyforgery/data/models/Expansion/Expansion.dart';
 import 'package:keyforgery/data/models/Wrappers/ExpansionWrapper/ExpansionWrapper.dart';
 import 'package:keyforgery/utilities/utils.dart';
@@ -10,10 +11,13 @@ const String untamedLogo =
 class DataMantainer {
   static late HouseWrapper _dataHouses;
   static late ExpansionWrapper _dataExpansion;
+  static late DownloadAssetsController _downloadAssetsController;
 
-  static void init(HouseWrapper houses, ExpansionWrapper expansions) {
+  static void init(HouseWrapper houses, ExpansionWrapper expansions,
+      DownloadAssetsController downloadAssetsController) {
     _dataHouses = houses;
     _dataExpansion = expansions;
+    _downloadAssetsController = downloadAssetsController;
   }
 
   static HouseWrapper getHousesInfo() {
@@ -21,13 +25,16 @@ class DataMantainer {
   }
 
   static List<Expansion> getExpansionsInfo() {
+    _dataExpansion.data.removeWhere((element) => element.set_id== 452);
     return _dataExpansion.data;
   }
 
+  static DownloadAssetsController getAssetController(){
+    return _downloadAssetsController;
+  }
+
   static String getExpansionLogoFromName(String expansionName) {
-    return _dataExpansion.data
-        .firstWhere((element) => element.expansion.toUpperCase().replaceAll(" ", "_") == expansionName)
-        .image;
+    return expansionName.toLowerCase().split(" ").map((e) => e[0]).join("");
   }
 
   static String getLinkFromName(String houseName) {
