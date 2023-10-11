@@ -141,10 +141,14 @@ class _DecksOfKeyforgeApi implements DecksOfKeyforgeApi {
   }
 
   @override
-  Future<HttpResponse<void>> getAuthorization(usr) async {
+  Future<HttpResponse<void>> getAuthorization(
+    usr,
+    zone,
+  ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Timezone': zone};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(usr.toJson());
     final _result =

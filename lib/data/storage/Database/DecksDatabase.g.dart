@@ -68,10 +68,10 @@ class _$DecksDatabase extends DecksDatabase {
   DeckWithCardsDao? _deckWithCardsDaoInstance;
 
   Future<sqflite.Database> open(
-    String path,
-    List<Migration> migrations, [
-    Callback? callback,
-  ]) async {
+      String path,
+      List<Migration> migrations, [
+        Callback? callback,
+      ]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
       version: 1,
       onConfigure: (database) async {
@@ -120,103 +120,103 @@ class _$DecksDatabase extends DecksDatabase {
 
 class _$DeckDao extends DeckDao {
   _$DeckDao(
-    this.database,
-    this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database, changeListener),
+      this.database,
+      this.changeListener,
+      )   : _queryAdapter = QueryAdapter(database, changeListener),
         _deckInsertionAdapter = InsertionAdapter(
             database,
             'decks',
-            (Deck item) => <String, Object?>{
-                  'id': item.id,
-                  'keyforgeId': item.keyforgeId,
-                  'name': item.name,
-                  'expansion': item.expansion,
-                  'creatureCount': item.creatureCount,
-                  'actionCount': item.actionCount,
-                  'artifactCount': item.artifactCount,
-                  'expectedAmber': item.expectedAmber,
-                  'amberControl': item.amberControl,
-                  'creatureControl': item.creatureControl,
-                  'artifactControl': item.artifactControl,
-                  'efficiency': item.efficiency,
-                  'effectivePower': item.effectivePower,
-                  'creatureProtection': item.creatureProtection,
-                  'disruption': item.disruption,
-                  'aercScore': item.aercScore,
-                  'sasRating': item.sasRating,
-                  'synergyRating': item.synergyRating,
-                  'antisynergyRating': item.antisynergyRating,
-                  'localWins': item.localWins,
-                  'localLosses': item.localLosses,
-                  'efficiencyBonus': item.efficiencyBonus,
-                  'totalPower': item.totalPower,
-                  'rawAmber': item.rawAmber,
-                  'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
-                },
+                (Deck item) => <String, Object?>{
+              'id': item.id,
+              'keyforgeId': item.keyforgeId,
+              'name': item.name,
+              'expansion': item.expansion,
+              'creatureCount': item.creatureCount,
+              'actionCount': item.actionCount,
+              'artifactCount': item.artifactCount,
+              'expectedAmber': item.expectedAmber,
+              'amberControl': item.amberControl,
+              'creatureControl': item.creatureControl,
+              'artifactControl': item.artifactControl,
+              'efficiency': item.efficiency,
+              'effectivePower': item.effectivePower,
+              'creatureProtection': item.creatureProtection,
+              'disruption': item.disruption,
+              'aercScore': item.aercScore,
+              'sasRating': item.sasRating,
+              'synergyRating': item.synergyRating,
+              'antisynergyRating': item.antisynergyRating,
+              'localWins': item.localWins,
+              'localLosses': item.localLosses,
+              'efficiencyBonus': item.efficiencyBonus,
+              'totalPower': item.totalPower,
+              'rawAmber': item.rawAmber,
+              'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
+            },
             changeListener),
         _deckUpdateAdapter = UpdateAdapter(
             database,
             'decks',
             ['id'],
-            (Deck item) => <String, Object?>{
-                  'id': item.id,
-                  'keyforgeId': item.keyforgeId,
-                  'name': item.name,
-                  'expansion': item.expansion,
-                  'creatureCount': item.creatureCount,
-                  'actionCount': item.actionCount,
-                  'artifactCount': item.artifactCount,
-                  'expectedAmber': item.expectedAmber,
-                  'amberControl': item.amberControl,
-                  'creatureControl': item.creatureControl,
-                  'artifactControl': item.artifactControl,
-                  'efficiency': item.efficiency,
-                  'effectivePower': item.effectivePower,
-                  'creatureProtection': item.creatureProtection,
-                  'disruption': item.disruption,
-                  'aercScore': item.aercScore,
-                  'sasRating': item.sasRating,
-                  'synergyRating': item.synergyRating,
-                  'antisynergyRating': item.antisynergyRating,
-                  'localWins': item.localWins,
-                  'localLosses': item.localLosses,
-                  'efficiencyBonus': item.efficiencyBonus,
-                  'totalPower': item.totalPower,
-                  'rawAmber': item.rawAmber,
-                  'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
-                },
+                (Deck item) => <String, Object?>{
+              'id': item.id,
+              'keyforgeId': item.keyforgeId,
+              'name': item.name,
+              'expansion': item.expansion,
+              'creatureCount': item.creatureCount,
+              'actionCount': item.actionCount,
+              'artifactCount': item.artifactCount,
+              'expectedAmber': item.expectedAmber,
+              'amberControl': item.amberControl,
+              'creatureControl': item.creatureControl,
+              'artifactControl': item.artifactControl,
+              'efficiency': item.efficiency,
+              'effectivePower': item.effectivePower,
+              'creatureProtection': item.creatureProtection,
+              'disruption': item.disruption,
+              'aercScore': item.aercScore,
+              'sasRating': item.sasRating,
+              'synergyRating': item.synergyRating,
+              'antisynergyRating': item.antisynergyRating,
+              'localWins': item.localWins,
+              'localLosses': item.localLosses,
+              'efficiencyBonus': item.efficiencyBonus,
+              'totalPower': item.totalPower,
+              'rawAmber': item.rawAmber,
+              'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
+            },
             changeListener),
         _deckDeletionAdapter = DeletionAdapter(
             database,
             'decks',
             ['id'],
-            (Deck item) => <String, Object?>{
-                  'id': item.id,
-                  'keyforgeId': item.keyforgeId,
-                  'name': item.name,
-                  'expansion': item.expansion,
-                  'creatureCount': item.creatureCount,
-                  'actionCount': item.actionCount,
-                  'artifactCount': item.artifactCount,
-                  'expectedAmber': item.expectedAmber,
-                  'amberControl': item.amberControl,
-                  'creatureControl': item.creatureControl,
-                  'artifactControl': item.artifactControl,
-                  'efficiency': item.efficiency,
-                  'effectivePower': item.effectivePower,
-                  'creatureProtection': item.creatureProtection,
-                  'disruption': item.disruption,
-                  'aercScore': item.aercScore,
-                  'sasRating': item.sasRating,
-                  'synergyRating': item.synergyRating,
-                  'antisynergyRating': item.antisynergyRating,
-                  'localWins': item.localWins,
-                  'localLosses': item.localLosses,
-                  'efficiencyBonus': item.efficiencyBonus,
-                  'totalPower': item.totalPower,
-                  'rawAmber': item.rawAmber,
-                  'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
-                },
+                (Deck item) => <String, Object?>{
+              'id': item.id,
+              'keyforgeId': item.keyforgeId,
+              'name': item.name,
+              'expansion': item.expansion,
+              'creatureCount': item.creatureCount,
+              'actionCount': item.actionCount,
+              'artifactCount': item.artifactCount,
+              'expectedAmber': item.expectedAmber,
+              'amberControl': item.amberControl,
+              'creatureControl': item.creatureControl,
+              'artifactControl': item.artifactControl,
+              'efficiency': item.efficiency,
+              'effectivePower': item.effectivePower,
+              'creatureProtection': item.creatureProtection,
+              'disruption': item.disruption,
+              'aercScore': item.aercScore,
+              'sasRating': item.sasRating,
+              'synergyRating': item.synergyRating,
+              'antisynergyRating': item.antisynergyRating,
+              'localWins': item.localWins,
+              'localLosses': item.localLosses,
+              'efficiencyBonus': item.efficiencyBonus,
+              'totalPower': item.totalPower,
+              'rawAmber': item.rawAmber,
+              'houses': _houseArrayTypeConverter.encode(item.housesAndCards)
+            },
             changeListener);
 
   final sqflite.DatabaseExecutor database;
@@ -299,28 +299,28 @@ class _$DeckDao extends DeckDao {
 
   @override
   Future<void> updateDeckStatus(
-    int sasRating,
-    int powerLevel,
-    int chains,
-    int wins,
-    int losses,
-    double aercScore,
-    double synergyRating,
-    double antisynergyRating,
-    int cardDrawCount,
-    int cardArchiveCount,
-    double recursion,
-    int keyCheatCount,
-    int id,
-    double efficiency,
-    double expectedAmber,
-    double creatureProtection,
-    int metaScores,
-    double amberControl,
-    double creatureControl,
-    double artifactControl,
-    double efficiencyBonus,
-  ) async {
+      int sasRating,
+      int powerLevel,
+      int chains,
+      int wins,
+      int losses,
+      double aercScore,
+      double synergyRating,
+      double antisynergyRating,
+      int cardDrawCount,
+      int cardArchiveCount,
+      double recursion,
+      int keyCheatCount,
+      int id,
+      double efficiency,
+      double expectedAmber,
+      double creatureProtection,
+      int metaScores,
+      double amberControl,
+      double creatureControl,
+      double artifactControl,
+      double efficiencyBonus,
+      ) async {
     await _queryAdapter.queryNoReturn(
         'UPDATE decks SET sasRating=?1,powerLevel=?2,chains=?3,wins=?4,losses=?5,aercScore=?6,synergyRating=?7,keyCheatCount=?12 ,cardDrawCount=?9,cardArchiveCount=?10,expectedAmber=?15,creatureProtection=?16,efficiency=?14,efficiencyBonus=?21,amberControl=?18,creatureControl=?19,artifactControl=?20,recursion=?11,metaScores=?17,antisynergyRating=?8 WHERE id=?13',
         arguments: [
@@ -372,25 +372,25 @@ class _$DeckDao extends DeckDao {
 
 class _$CardDao extends CardDao {
   _$CardDao(
-    this.database,
-    this.changeListener,
-  )   : _queryAdapter = QueryAdapter(database),
+      this.database,
+      this.changeListener,
+      )   : _queryAdapter = QueryAdapter(database),
         _cardInsertionAdapter = InsertionAdapter(
             database,
             'cards',
-            (Card item) => <String, Object?>{
-                  'id': item.id,
-                  'card_title': item.card_title,
-                  'house': item.house,
-                  'card_type': item.card_type,
-                  'front_image': item.front_image,
-                  'card_text': item.card_text,
-                  'amber': item.amber,
-                  'rarity': item.rarity,
-                  'is_maverick': item.is_maverick ? 1 : 0,
-                  'is_anomaly': item.is_anomaly ? 1 : 0,
-                  'is_enhanced': item.is_enhanced ? 1 : 0
-                });
+                (Card item) => <String, Object?>{
+              'id': item.id,
+              'card_title': item.card_title,
+              'house': item.house,
+              'card_type': item.card_type,
+              'front_image': item.front_image,
+              'card_text': item.card_text,
+              'amber': item.amber,
+              'rarity': item.rarity,
+              'is_maverick': item.is_maverick ? 1 : 0,
+              'is_anomaly': item.is_anomaly ? 1 : 0,
+              'is_enhanced': item.is_enhanced ? 1 : 0
+            });
 
   final sqflite.DatabaseExecutor database;
 
@@ -404,24 +404,24 @@ class _$CardDao extends CardDao {
   Future<List<RetrievedCard>> getCardsFromDeckId(int deckId) async {
     return _queryAdapter.queryList(
         'select c.id, c.card_title,c.house,c.card_type, c.front_image,c.card_text,c.amber,c.rarity,cdj.count,cdj.is_anomaly,cdj.is_enhanced,cdj.is_legacy,cdj'
-        '.is_maverick from cards as c INNER JOIN cards_deck_join as cdj on c.id=cdj.cardId where cdj.deckId =?1 '
-        'Group by c.id Order by c.house, c.card_title',
+            '.is_maverick from cards as c INNER JOIN cards_deck_join as cdj on c.id=cdj.cardId where cdj.deckId =?1 '
+            'Group by c.id Order by c.house, c.card_title',
         arguments: [deckId],
         mapper: (Map<String, Object?> row) => RetrievedCard(
-              row['id'] as String,
-              row['card_title'] as String,
-              row['house'] as String,
-              row['card_type'] as String,
-              row['front_image'] as String,
-              row['card_text'] as String,
-              row['amber'] as int,
-              row['rarity'] as String,
-              (row['is_maverick'] as int) == 1,
-              (row['is_anomaly'] as int) == 1,
-              (row['is_enhanced'] as int) == 1,
-              row['count'] as int,
-              (row['is_legacy'] as int) == 1,
-            ));
+          row['id'] as String,
+          row['card_title'] as String,
+          row['house'] as String,
+          row['card_type'] as String,
+          row['front_image'] as String,
+          row['card_text'] as String,
+          row['amber'] as int,
+          row['rarity'] as String,
+          (row['is_maverick'] as int) == 1,
+          (row['is_anomaly'] as int) == 1,
+          (row['is_enhanced'] as int) == 1,
+          row['count'] as int,
+          (row['is_legacy'] as int) == 1,
+        ));
   }
 
   @override
@@ -433,20 +433,20 @@ class _$CardDao extends CardDao {
 
 class _$DeckWithCardsDao extends DeckWithCardsDao {
   _$DeckWithCardsDao(
-    this.database,
-    this.changeListener,
-  ) : _cardsDeckRefInsertionAdapter = InsertionAdapter(
-            database,
-            'cards_deck_join',
-            (CardsDeckRef item) => <String, Object?>{
-                  'cardId': item.cardId,
-                  'deckId': item.deckId,
-                  'count': item.count,
-                  'is_maverick': item.is_maverick ? 1 : 0,
-                  'is_legacy': item.is_legacy ? 1 : 0,
-                  'is_anomaly': item.is_anomaly ? 1 : 0,
-                  'is_enhanced': item.is_enhanced ? 1 : 0
-                });
+      this.database,
+      this.changeListener,
+      ) : _cardsDeckRefInsertionAdapter = InsertionAdapter(
+      database,
+      'cards_deck_join',
+          (CardsDeckRef item) => <String, Object?>{
+        'cardId': item.cardId,
+        'deckId': item.deckId,
+        'count': item.count,
+        'is_maverick': item.is_maverick ? 1 : 0,
+        'is_legacy': item.is_legacy ? 1 : 0,
+        'is_anomaly': item.is_anomaly ? 1 : 0,
+        'is_enhanced': item.is_enhanced ? 1 : 0
+      });
 
   final sqflite.DatabaseExecutor database;
 

@@ -31,7 +31,7 @@ abstract class DecksOfKeyforgeApi {
   Future<FilterCount> countDecks(@Body() GetDecksReqBody body);
 
   @POST("users/login")
-  Future<HttpResponse<void>> getAuthorization(@Body() UserValidator usr);
+  Future<HttpResponse<void>> getAuthorization(@Body() UserValidator usr, @Header("Timezone") int zone);
 
   @GET("users/secured/your-user")
   Future<UserInfo> getUserName(@Header("authorization") String auth);

@@ -55,7 +55,7 @@ class Api {
   }
 
   static Future<HttpResponse<void>> getAuthorization(UserValidator usrV) {
-    return dokClient.getAuthorization(usrV);
+    return dokClient.getAuthorization(usrV, 120);
   }
 
   static Future<UserInfo> getUsername(String authToken) {

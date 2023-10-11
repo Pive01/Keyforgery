@@ -185,31 +185,6 @@ class _HomeState extends State<Home> {
                               builder: (context) =>
                                   DeckInfo(deck: selectedDeck))),
                     },
-                    callbackLong: (Deck deck) => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(32.0))),
-                        title: const Text('Remove from library'),
-                        content: Text(deck.name),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              deckDao.deleteDeck(deck).then(
-                                    (value) =>
-                                        Navigator.pop(context, 'Removed'),
-                                  );
-                            },
-                            child: const Text('Remove'),
-                          ),
-                        ],
-                      ),
-                    ),
                   );
                 }),
           ],
