@@ -82,7 +82,7 @@ class ApiPerformer {
     FilterCount numbers =
         await Api.countDecks(GetDecksReqBody(owner: info.username));
     List<int> requestPrimitive =
-        List<int>.generate(numbers.pages, (i) => i + 1);
+        List<int>.generate(numbers.pages, (i) => i);
     var responses = await Future.wait(requestPrimitive.map((e) =>
         Api.getDecksByUserName(
             GetDecksReqBody(owner: info.username, page: e))));
