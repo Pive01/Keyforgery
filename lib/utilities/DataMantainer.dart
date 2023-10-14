@@ -34,12 +34,10 @@ class DataMantainer {
   }
 
   static String getExpansionLogoFromName(String expansionName) {
+    print(expansionName);
     return expansionName
-        .toLowerCase()
-        .replaceAll("_", " ")
-        .split(" ")
-        .map((e) => e[0])
-        .join("");
+        .toUpperCase()
+        .replaceAll(" ", "_");
   }
 
   static String getLinkFromName(String houseName) {

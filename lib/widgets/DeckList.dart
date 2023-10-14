@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../data/models/DeckModel/Deck/Deck.dart';
+import '../data/storage/Database/DecksDatabase.dart';
+import '../data/storage/Deck/DeckDao.dart';
 import 'DeckDisplayer/DeckDisplayer.dart';
 
 class DeckList extends StatefulWidget {
@@ -17,6 +19,7 @@ class DeckList extends StatefulWidget {
 class _DeckListState extends State<DeckList> {
 
   List<Deck> removedDecks = [];
+  DeckDao deckDao = DecksDatabase.getSyncDB().deckDao;
 
   @override
   Widget build(BuildContext context) {
@@ -36,34 +39,21 @@ class _DeckListState extends State<DeckList> {
                         padding: EdgeInsets.only(right: 12.0),
                         child: Icon(Icons.delete),
                       ))),
-              key: Key(widget.deckList
-                  .elementAt(position)
-                  .id
-                  .toString()),
+              key: UniqueKey(),
               onDismissed: (direction) {
+                deckDao.deleteDeck(widget.deckList.elementAt(position)).then((value) => removedDecks.clear());
                 setState(() {
                   removedDecks.add(widget.deckList.elementAt(position));
                 });
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(
-                      "Removed ${widget.deckList
-                          .elementAt(position)
-                          .name}",
-                      overflow: TextOverflow.fade),
-                  action: SnackBarAction(
-                    label: 'Undo',
-                    onPressed: () {},
-                  ),
-                ));
               },
               child: DeckDisplayer(
-          deck: widget.deckList.elementAt(position),
+          deck: widget.deckList.where((element) => !removedDecks.contains(element)).toList().elementAt(position),
           callBack: widget.callback,
           ),
           );
         },
-        itemCount: widget.deckList.length,
-        separatorBuilder: (context, index) => const Divider(height: 1,)
+        itemCount: widget.deckList.length - removedDecks.length,
+        separatorBuilder: (context, index) => const Divider(height: 1)
     )
         : const Center(
       child: Text('Nothing to display here'),
